@@ -49,6 +49,7 @@
 		1DE8F7FF2602478000079E0C /* Push itUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Push itUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DE8F8032602478000079E0C /* Push_itUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Push_itUITests.swift; sourceTree = "<group>"; };
 		1DE8F8052602478000079E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CCB650252613A62B00BFF576 /* Push it.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Push it.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +100,7 @@
 		1DE8F7E02602477F00079E0C /* Push it */ = {
 			isa = PBXGroup;
 			children = (
+				CCB650252613A62B00BFF576 /* Push it.entitlements */,
 				1DE8F7E12602478000079E0C /* AppDelegate.swift */,
 				1DE8F7E32602478000079E0C /* SceneDelegate.swift */,
 				1DE8F7E52602478000079E0C /* ViewController.swift */,
@@ -436,6 +438,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Push it/Push it.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 369R8Q7M52;
 				INFOPLIST_FILE = "Push it/Info.plist";
@@ -455,6 +458,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Push it/Push it.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 369R8Q7M52;
 				INFOPLIST_FILE = "Push it/Info.plist";
