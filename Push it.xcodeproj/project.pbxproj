@@ -7,14 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1DE8F7E22602478000079E0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8F7E12602478000079E0C /* AppDelegate.swift */; };
-		1DE8F7E42602478000079E0C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8F7E32602478000079E0C /* SceneDelegate.swift */; };
-		1DE8F7E62602478000079E0C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8F7E52602478000079E0C /* ViewController.swift */; };
-		1DE8F7E92602478000079E0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DE8F7E72602478000079E0C /* Main.storyboard */; };
-		1DE8F7EB2602478000079E0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DE8F7EA2602478000079E0C /* Assets.xcassets */; };
-		1DE8F7EE2602478000079E0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DE8F7EC2602478000079E0C /* LaunchScreen.storyboard */; };
 		1DE8F7F92602478000079E0C /* Push_itTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8F7F82602478000079E0C /* Push_itTests.swift */; };
 		1DE8F8042602478000079E0C /* Push_itUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8F8032602478000079E0C /* Push_itUITests.swift */; };
+		CC74B0662618672E00C7AF56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B05A2618672E00C7AF56 /* AppDelegate.swift */; };
+		CC74B0682618672E00C7AF56 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B05C2618672E00C7AF56 /* SceneDelegate.swift */; };
+		CC74B0692618672E00C7AF56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC74B05E2618672E00C7AF56 /* Assets.xcassets */; };
+		CC74B06A2618672E00C7AF56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC74B05F2618672E00C7AF56 /* LaunchScreen.storyboard */; };
+		CC74B06B2618672E00C7AF56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC74B0612618672E00C7AF56 /* Main.storyboard */; };
+		CC74B06C2618672E00C7AF56 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B0642618672E00C7AF56 /* NewsViewController.swift */; };
+		CC74B0882618693200C7AF56 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B0872618693200C7AF56 /* Configuration.swift */; };
+		CC74B09C26186BB200C7AF56 /* NetworkEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B09526186BB200C7AF56 /* NetworkEnvironment.swift */; };
+		CC74B09D26186BB200C7AF56 /* NetworkRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B09626186BB200C7AF56 /* NetworkRoute.swift */; };
+		CC74B09E26186BB200C7AF56 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B09726186BB200C7AF56 /* Networking.swift */; };
+		CC74B09F26186BB200C7AF56 /* NetworkValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B09826186BB200C7AF56 /* NetworkValidation.swift */; };
+		CC74B0A026186BB200C7AF56 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B09926186BB200C7AF56 /* NetworkTask.swift */; };
+		CC74B0A126186BB200C7AF56 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B09A26186BB200C7AF56 /* NetworkProvider.swift */; };
+		CC74B0A226186BB200C7AF56 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B09B26186BB200C7AF56 /* NetworkError.swift */; };
+		CC74B0A726186C2E00C7AF56 /* PushItNetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B0A626186C2E00C7AF56 /* PushItNetworkLayer.swift */; };
+		CC74B0AF26186C6400C7AF56 /* PushItNetworkEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B0AE26186C6400C7AF56 /* PushItNetworkEnvironment.swift */; };
+		CC74B0BA26186EE400C7AF56 /* PushItNetworkRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B0B926186EE400C7AF56 /* PushItNetworkRoute.swift */; };
+		CC74B0C62618714100C7AF56 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B0C52618714100C7AF56 /* News.swift */; };
+		CC74B0CE2618717F00C7AF56 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B0CD2618717F00C7AF56 /* Article.swift */; };
+		CC74B10C26187AFC00C7AF56 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B10B26187AFC00C7AF56 /* NewsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,20 +50,34 @@
 
 /* Begin PBXFileReference section */
 		1DE8F7DE2602477F00079E0C /* Push it.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Push it.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1DE8F7E12602478000079E0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1DE8F7E32602478000079E0C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1DE8F7E52602478000079E0C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1DE8F7E82602478000079E0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1DE8F7EA2602478000079E0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1DE8F7ED2602478000079E0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		1DE8F7EF2602478000079E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1DE8F7F42602478000079E0C /* Push itTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Push itTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DE8F7F82602478000079E0C /* Push_itTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Push_itTests.swift; sourceTree = "<group>"; };
 		1DE8F7FA2602478000079E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1DE8F7FF2602478000079E0C /* Push itUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Push itUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DE8F8032602478000079E0C /* Push_itUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Push_itUITests.swift; sourceTree = "<group>"; };
 		1DE8F8052602478000079E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CCB650252613A62B00BFF576 /* Push it.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Push it.entitlements"; sourceTree = "<group>"; };
+		CC74B05A2618672E00C7AF56 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CC74B05B2618672E00C7AF56 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC74B05C2618672E00C7AF56 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		CC74B05E2618672E00C7AF56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC74B0602618672E00C7AF56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CC74B0622618672E00C7AF56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CC74B0642618672E00C7AF56 /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		CC74B07D2618680C00C7AF56 /* Push it.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Push it.entitlements"; sourceTree = "<group>"; };
+		CC74B0872618693200C7AF56 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		CC74B09526186BB200C7AF56 /* NetworkEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkEnvironment.swift; sourceTree = "<group>"; };
+		CC74B09626186BB200C7AF56 /* NetworkRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRoute.swift; sourceTree = "<group>"; };
+		CC74B09726186BB200C7AF56 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		CC74B09826186BB200C7AF56 /* NetworkValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkValidation.swift; sourceTree = "<group>"; };
+		CC74B09926186BB200C7AF56 /* NetworkTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
+		CC74B09A26186BB200C7AF56 /* NetworkProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
+		CC74B09B26186BB200C7AF56 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		CC74B0A626186C2E00C7AF56 /* PushItNetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushItNetworkLayer.swift; sourceTree = "<group>"; };
+		CC74B0AE26186C6400C7AF56 /* PushItNetworkEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushItNetworkEnvironment.swift; sourceTree = "<group>"; };
+		CC74B0B926186EE400C7AF56 /* PushItNetworkRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushItNetworkRoute.swift; sourceTree = "<group>"; };
+		CC74B0C52618714100C7AF56 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		CC74B0CD2618717F00C7AF56 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		CC74B10B26187AFC00C7AF56 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,14 +128,9 @@
 		1DE8F7E02602477F00079E0C /* Push it */ = {
 			isa = PBXGroup;
 			children = (
-				CCB650252613A62B00BFF576 /* Push it.entitlements */,
-				1DE8F7E12602478000079E0C /* AppDelegate.swift */,
-				1DE8F7E32602478000079E0C /* SceneDelegate.swift */,
-				1DE8F7E52602478000079E0C /* ViewController.swift */,
-				1DE8F7E72602478000079E0C /* Main.storyboard */,
-				1DE8F7EA2602478000079E0C /* Assets.xcassets */,
-				1DE8F7EC2602478000079E0C /* LaunchScreen.storyboard */,
-				1DE8F7EF2602478000079E0C /* Info.plist */,
+				CC74B0582618672E00C7AF56 /* Application */,
+				CC74B05D2618672E00C7AF56 /* Resources */,
+				CC74B0632618672E00C7AF56 /* Source */,
 			);
 			path = "Push it";
 			sourceTree = "<group>";
@@ -128,6 +151,73 @@
 				1DE8F8052602478000079E0C /* Info.plist */,
 			);
 			path = "Push itUITests";
+			sourceTree = "<group>";
+		};
+		CC74B0582618672E00C7AF56 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				CC74B05A2618672E00C7AF56 /* AppDelegate.swift */,
+				CC74B07D2618680C00C7AF56 /* Push it.entitlements */,
+				CC74B05B2618672E00C7AF56 /* Info.plist */,
+				CC74B05C2618672E00C7AF56 /* SceneDelegate.swift */,
+				CC74B0872618693200C7AF56 /* Configuration.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		CC74B05D2618672E00C7AF56 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CC74B05E2618672E00C7AF56 /* Assets.xcassets */,
+				CC74B05F2618672E00C7AF56 /* LaunchScreen.storyboard */,
+				CC74B0612618672E00C7AF56 /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CC74B0632618672E00C7AF56 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				CC74B0642618672E00C7AF56 /* NewsViewController.swift */,
+				CC74B10B26187AFC00C7AF56 /* NewsViewModel.swift */,
+				CC74B0652618672E00C7AF56 /* Networking */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		CC74B0652618672E00C7AF56 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				CC74B0C42618713600C7AF56 /* Models */,
+				CC74B09426186BB200C7AF56 /* Protocols */,
+				CC74B0AE26186C6400C7AF56 /* PushItNetworkEnvironment.swift */,
+				CC74B0A626186C2E00C7AF56 /* PushItNetworkLayer.swift */,
+				CC74B0B926186EE400C7AF56 /* PushItNetworkRoute.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		CC74B09426186BB200C7AF56 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				CC74B09526186BB200C7AF56 /* NetworkEnvironment.swift */,
+				CC74B09B26186BB200C7AF56 /* NetworkError.swift */,
+				CC74B09726186BB200C7AF56 /* Networking.swift */,
+				CC74B09A26186BB200C7AF56 /* NetworkProvider.swift */,
+				CC74B09626186BB200C7AF56 /* NetworkRoute.swift */,
+				CC74B09926186BB200C7AF56 /* NetworkTask.swift */,
+				CC74B09826186BB200C7AF56 /* NetworkValidation.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		CC74B0C42618713600C7AF56 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CC74B0C52618714100C7AF56 /* News.swift */,
+				CC74B0CD2618717F00C7AF56 /* Article.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,9 +323,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DE8F7EE2602478000079E0C /* LaunchScreen.storyboard in Resources */,
-				1DE8F7EB2602478000079E0C /* Assets.xcassets in Resources */,
-				1DE8F7E92602478000079E0C /* Main.storyboard in Resources */,
+				CC74B06B2618672E00C7AF56 /* Main.storyboard in Resources */,
+				CC74B06A2618672E00C7AF56 /* LaunchScreen.storyboard in Resources */,
+				CC74B0692618672E00C7AF56 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,9 +350,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DE8F7E62602478000079E0C /* ViewController.swift in Sources */,
-				1DE8F7E22602478000079E0C /* AppDelegate.swift in Sources */,
-				1DE8F7E42602478000079E0C /* SceneDelegate.swift in Sources */,
+				CC74B0A726186C2E00C7AF56 /* PushItNetworkLayer.swift in Sources */,
+				CC74B06C2618672E00C7AF56 /* NewsViewController.swift in Sources */,
+				CC74B0A026186BB200C7AF56 /* NetworkTask.swift in Sources */,
+				CC74B0C62618714100C7AF56 /* News.swift in Sources */,
+				CC74B09D26186BB200C7AF56 /* NetworkRoute.swift in Sources */,
+				CC74B0CE2618717F00C7AF56 /* Article.swift in Sources */,
+				CC74B0682618672E00C7AF56 /* SceneDelegate.swift in Sources */,
+				CC74B09E26186BB200C7AF56 /* Networking.swift in Sources */,
+				CC74B0882618693200C7AF56 /* Configuration.swift in Sources */,
+				CC74B10C26187AFC00C7AF56 /* NewsViewModel.swift in Sources */,
+				CC74B0662618672E00C7AF56 /* AppDelegate.swift in Sources */,
+				CC74B0A126186BB200C7AF56 /* NetworkProvider.swift in Sources */,
+				CC74B09F26186BB200C7AF56 /* NetworkValidation.swift in Sources */,
+				CC74B0A226186BB200C7AF56 /* NetworkError.swift in Sources */,
+				CC74B09C26186BB200C7AF56 /* NetworkEnvironment.swift in Sources */,
+				CC74B0AF26186C6400C7AF56 /* PushItNetworkEnvironment.swift in Sources */,
+				CC74B0BA26186EE400C7AF56 /* PushItNetworkRoute.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,20 +402,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		1DE8F7E72602478000079E0C /* Main.storyboard */ = {
+		CC74B05F2618672E00C7AF56 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1DE8F7E82602478000079E0C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		1DE8F7EC2602478000079E0C /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1DE8F7ED2602478000079E0C /* Base */,
+				CC74B0602618672E00C7AF56 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		CC74B0612618672E00C7AF56 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC74B0622618672E00C7AF56 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -438,10 +542,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Push it/Push it.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Push it/Application/Push it.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 369R8Q7M52;
-				INFOPLIST_FILE = "Push it/Info.plist";
+				INFOPLIST_FILE = "Push it/Application/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -458,10 +562,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Push it/Push it.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Push it/Application/Push it.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 369R8Q7M52;
-				INFOPLIST_FILE = "Push it/Info.plist";
+				INFOPLIST_FILE = "Push it/Application/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
