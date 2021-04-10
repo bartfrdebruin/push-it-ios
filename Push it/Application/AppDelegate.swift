@@ -10,9 +10,7 @@ import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-//    private let window: UIWindow?
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         registerForPushNotifications()
@@ -23,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Check if launched from notification
         let notificationOption = launchOptions?[.remoteNotification]
         
-        // 1
         if let notification = notificationOption as? [String: AnyObject],
            let aps = notification["aps"] as? [String: AnyObject] {
             
@@ -31,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = NewsViewController()
+        window.rootViewController = NewsViewController.make()
         window.makeKeyAndVisible()
         
         return true
@@ -104,6 +101,7 @@ extension AppDelegate {
     func application(
         _ application: UIApplication,
         didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        
         print("Failed to register: \(error)")
     }
     
@@ -112,6 +110,8 @@ extension AppDelegate {
         didReceiveRemoteNotification userInfo: [AnyHashable: Any],
         fetchCompletionHandler completionHandler:
             @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        print("didReceiveRemoteNotification", userInfo)
         
         guard let aps = userInfo["aps"] as? [String: AnyObject] else {
             completionHandler(.failed)
@@ -129,10 +129,33 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         let userInfo = response.notification.request.content.userInfo
         
+        print("didReceive response:", userInfo)
+        
         if let aps = userInfo["aps"] as? [String: AnyObject] {
             print("APS didReceive response:", aps)
         }
         
         completionHandler()
     }
+    
+    private func getMediaAttachment(
+        for urlString: String,
+        completion: @escaping (UIImage?) -> Void
+    ) {
+        // 1
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        let data = try? Data(contentsOf: url)
+        
+        guard let unwrappedData = data,
+              let image = UIImage(data: unwrappedData) else {
+            return
+        }
+
+        completion(image)
+    }
 }
+

@@ -19,7 +19,7 @@ class NewsViewModel {
     
     private let networkLayer = PushItNetworkLayer()
     private var disposables = Set<AnyCancellable>()
-    private var articles: [Article] = []
+    private(set) var articles: [Article] = []
 
     private(set) var state: State = .initial {
         didSet {
@@ -32,14 +32,27 @@ class NewsViewModel {
     func getNews() {
         
         networkLayer.allNews().sink { (error) in
-            
-            print("error", error)
+
+            switch error {
+            case .failure(let error):
+                self.state = .error(error)
+            default:
+                break
+            }
             
         } receiveValue: { (news) in
+            
+            self.articles = news.articles
+            self.state = .result
             
             print("news", news)
             
         }.store(in: &disposables)
+    }
+    
+    func numberOfArticles() -> Int {
+        
+        return articles.count
     }
     
     func article(at indexPath: IndexPath) -> Article? {
