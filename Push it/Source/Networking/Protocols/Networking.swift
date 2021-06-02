@@ -8,44 +8,44 @@
 
 import Foundation
 import Combine
+import RxSwift
 
 protocol Networking {
     var environment: NetworkEnvironment { get set }
     var networkProvider: NetworkProvider { get set }
 }
 
+
 extension Networking {
     
-    func requestData(for route: NetworkRoute) -> AnyPublisher<Data, Error> {
-        
-        var networkTask: NetworkTask?
-        
-        return Future<Data, Error> { promise in
+    func request(for route: NetworkRoute) -> Single<Data> {
+
+        return Single.create { (single) -> Disposable in
             
             let task = self.networkProvider.networkTask(for: route, in: self.environment) { (result) in
                 
                 switch result {
                 case .failure(let error):
-                    return promise(.failure(error))
-                case .success(let data):
-                    return promise(.success(data))
+                    single(.failure(error))
+                case .success(let response):
+                    single(.success(response))
                 }
-                
             }
             
             task?.resume()
-            networkTask = task
             
-
-        }.handleEvents(receiveCancel: {
-            
-            networkTask?.cancel()
-            
-        }).eraseToAnyPublisher()
+            return Disposables.create {
+                task?.cancel()
+            }
+        }
     }
-     
-     func request<T:Decodable>(for route: NetworkRoute) -> AnyPublisher<T, Error> {
-        return requestData(for: route)
-             .decode(type: T.self, decoder: JSONDecoder()).eraseToAnyPublisher()
-     }
+
+    func request<T: Decodable>(for route: NetworkRoute) -> Single<T> {
+        
+        let decoder = JSONDecoder()
+
+        return request(for: route)
+            .map { try decoder.decode(T.self, from: $0)
+        }
+    }
 }

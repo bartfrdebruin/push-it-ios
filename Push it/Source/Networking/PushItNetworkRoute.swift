@@ -8,37 +8,50 @@
 import Foundation
 
 enum PushItNetworkRoute {
-    case topHeadlines
-    case everything
+    case headlines
+    case sports
+    case foreign
+    case domestic
 }
 
 extension PushItNetworkRoute: NetworkRoute {
     
     var method: HTTPMethod {
         switch self {
-        case .topHeadlines, .everything:
+        case .headlines, .domestic, .foreign, .sports:
             return .GET
         }
     }
     
     var path: String {
         switch self {
-        case .topHeadlines:
-            return "/top-headlines"
-        case .everything:
-            return "/everything?q=apple&from=2021-04-02&to=2021-04-02&sortBy=popularity&apiKey=\(Configuration.APIKey)"
+        case .headlines:
+            return "/top-headlines?country=nl&apiKey=\(Configuration.APIKey)"
+        case .domestic:
+            return "/everything?q=news&language=nl&\(components())"
+        case .foreign:
+            return "/everything?q=buitenland&language=nl&\(components())"
+        case .sports:
+            return "/everything?q=sports&language=nl&\(components())"
         }
     }
     
     var body: Data? {
         switch self {
-        case .topHeadlines:
-            return nil
-        case .everything:
+        case .headlines, .domestic, .foreign, .sports:
             return nil
         }
     }
 }
+
+// MARK: - Helper
+extension PushItNetworkRoute {
+    
+    private func components() -> String {
+        return "from=\(Date().twentyDaysAgo())&to=\(Date().today())&sortBy=popularity&apiKey=\(Configuration.APIKey)"
+    }
+}
+
 
 
 

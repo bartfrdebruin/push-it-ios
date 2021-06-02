@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Combine
+import RxSwift
 
 enum State {
     case initial
@@ -17,9 +17,14 @@ enum State {
 
 class NewsViewModel {
     
-    private let networkLayer = PushItNetworkLayer()
-    private var disposables = Set<AnyCancellable>()
+    private let screenType: ScreenType
     private(set) var articles: [Article] = []
+    private let networkLayer = PushItNetworkLayer()
+    private let disposeBag = DisposeBag()
+    
+    init(screenType: ScreenType) {
+        self.screenType = screenType
+    }
 
     private(set) var state: State = .initial {
         didSet {
@@ -31,23 +36,40 @@ class NewsViewModel {
     
     func getNews() {
         
-        networkLayer.allNews().sink { (error) in
-
-            switch error {
-            case .failure(let error):
+        news()
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] (news) in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                self.articles = news.articles
+                self.state = .result
+                
+            } onFailure: { [weak self] (error) in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 self.state = .error(error)
-            default:
-                break
-            }
-            
-        } receiveValue: { (news) in
-            
-            self.articles = news.articles
-            self.state = .result
-            
-            print("news", news)
-            
-        }.store(in: &disposables)
+                
+            }.disposed(by: disposeBag)
+    }
+    
+    private func news() -> Single<News> {
+        
+        switch screenType {
+        case .headlines:
+            return networkLayer.headlines()
+        case .domestic:
+            return networkLayer.domesticNews()
+        case .foreign:
+            return networkLayer.foreignNews()
+        case .sport:
+            return networkLayer.headlines()
+        }
     }
     
     func numberOfArticles() -> Int {

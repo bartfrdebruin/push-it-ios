@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Combine
+import RxSwift
 
 final class PushItNetworkLayer: Networking {
     
@@ -19,9 +19,28 @@ final class PushItNetworkLayer: Networking {
         self.networkProvider = networkProvider
     }
     
-    func allNews() -> AnyPublisher<News, Error> {
+    func headlines() -> Single<News> {
         
-        let route = PushItNetworkRoute.everything
+        let route = PushItNetworkRoute.headlines
+        return request(for: route)
+    }
+
+    func domesticNews() -> Single<News> {
+        
+        let route = PushItNetworkRoute.domestic
+        return request(for: route)
+    }
+    
+    func foreignNews() -> Single<News> {
+        
+        let route = PushItNetworkRoute.foreign
+        return request(for: route)
+    }
+    
+    
+    func sports() -> Single<News> {
+        
+        let route = PushItNetworkRoute.sports
         return request(for: route)
     }
 }

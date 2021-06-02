@@ -11,6 +11,10 @@ import UserNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    private var viewController: UIViewController?
+    
+    var window: UIWindow?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         registerForPushNotifications()
@@ -27,27 +31,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("APS didFinishLaunchingWithOptions:", aps)
         }
         
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = NewsViewController.make()
-        window.makeKeyAndVisible()
+        UINavigationBar.appearance().backItem?.backButtonDisplayMode = .minimal
+        UINavigationBar.appearance().tintColor = .black
+      
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = PushItTabBarController()
+        window?.makeKeyAndVisible()
+        
         
         return true
-    }
-    
-    // MARK: UISceneSession Lifecycle
-    
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration",
-                                    sessionRole: connectingSceneSession.role)
-    }
-    
-    func application(_ application: UIApplication,
-                     didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 }
 
@@ -95,15 +87,19 @@ extension AppDelegate {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
         
-        print("Device Token: \(token)")
+        print("PUSH: Device Token: \(token)")
     }
     
     func application(
         _ application: UIApplication,
         didFailToRegisterForRemoteNotificationsWithError error: Error) {
         
-        print("Failed to register: \(error)")
+        print("PUSH: Failed to register: \(error)")
     }
+}
+
+// MARK: - didReceive
+extension AppDelegate {
     
     func application(
         _ application: UIApplication,
@@ -111,7 +107,7 @@ extension AppDelegate {
         fetchCompletionHandler completionHandler:
             @escaping (UIBackgroundFetchResult) -> Void) {
         
-        print("didReceiveRemoteNotification", userInfo)
+        print("PUSH: didReceiveRemoteNotification", userInfo)
         
         guard let aps = userInfo["aps"] as? [String: AnyObject] else {
             completionHandler(.failed)
@@ -129,7 +125,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         let userInfo = response.notification.request.content.userInfo
         
-        print("didReceive response:", userInfo)
+        print("userNotificationCenter didReceive response:", userInfo)
         
         if let aps = userInfo["aps"] as? [String: AnyObject] {
             print("APS didReceive response:", aps)

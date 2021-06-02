@@ -10,7 +10,7 @@ import Combine
 
 class NewsViewController: UIViewController {
     
-    private let viewModel = NewsViewModel()
+    private let viewModel: NewsViewModel
 
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var errorLabel: UILabel!
@@ -18,6 +18,15 @@ class NewsViewController: UIViewController {
     
     // DataSource
     private lazy var dataSource = configureDataSource()
+    
+    init?(coder: NSCoder, viewModel: NewsViewModel) {
+        self.viewModel = viewModel
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("You must create this view controller with an article.")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +40,8 @@ class NewsViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = dataSource
-        collectionView.register(UINib(nibName: TextCollectionViewCell.identifier, bundle: nil),
-                                forCellWithReuseIdentifier: TextCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: NewsCollectionViewCell.identifier, bundle: nil),
+                                forCellWithReuseIdentifier: NewsCollectionViewCell.identifier)
 
         collectionView.collectionViewLayout = layout()
     }
@@ -41,8 +50,8 @@ class NewsViewController: UIViewController {
         
         return UICollectionViewDiffableDataSource(collectionView: collectionView) { (collectionView, indexPath, source) -> UICollectionViewCell? in
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TextCollectionViewCell.identifier, for: indexPath) as! TextCollectionViewCell
-            cell.configure(with: source.title)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCollectionViewCell.identifier, for: indexPath) as! NewsCollectionViewCell
+            cell.configure(with: source)
             
             return cell
         }
@@ -73,7 +82,7 @@ class NewsViewController: UIViewController {
                 print("loading")
             case .result:
                 
-                DispatchQueue.main.sync {
+                DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
                     self.errorLabel.isHidden = true
                     self.configureSnapshot()
@@ -88,6 +97,16 @@ class NewsViewController: UIViewController {
 
 extension NewsViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard viewModel.articles.count > indexPath.item,
+              let article = viewModel.article(at: indexPath) else {
+            return
+        }
+
+        let vc = NewsDetailViewController.make(with: article)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 // MARK: - CollectionViewFlowLayoutDelegate
@@ -95,52 +114,38 @@ extension NewsViewController {
     
     private func layout() -> UICollectionViewLayout {
         
-        let heroItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(2/3),
-            heightDimension: .estimated(550)
-        )
-        
-        let heroItem = NSCollectionLayoutItem(layoutSize: heroItemSize)
-        
-        let sideKickItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(49)
-        )
-        
-        let sideKickItem = NSCollectionLayoutItem(layoutSize: sideKickItemSize)
-        
-        let sideKickGroupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1/3),
-            heightDimension: .estimated(49)
-        )
-        
-        let sideKickGroup = NSCollectionLayoutGroup.vertical(
-            layoutSize: sideKickGroupSize,
-            subitems: [sideKickItem, sideKickItem]
-        )
-        
-        let topGroupSize = NSCollectionLayoutSize(
+        let fullWidthSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .estimated(50)
         )
         
-        let topGroup = NSCollectionLayoutGroup.horizontal(
-            layoutSize: topGroupSize,
-            subitems: [heroItem, sideKickGroup]
-        )
+        let fullWidthItem = NSCollectionLayoutItem(
+            layoutSize: fullWidthSize)
+
+        let mainGroup = NSCollectionLayoutGroup.horizontal(
+            layoutSize: fullWidthSize,
+            subitem: fullWidthItem,
+            count: 1)
         
-        let section = NSCollectionLayoutSection(group: topGroup)
+        mainGroup.edgeSpacing = .init(leading: .fixed(0), top: .fixed(2), trailing: .fixed(0), bottom: .fixed(0))
+        let section = NSCollectionLayoutSection(group: mainGroup)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
 }
 
+// MARK: - Factory
 extension NewsViewController {
-    
-    static func make() -> NewsViewController {
+
+    static func make(with screenType: ScreenType) -> NewsViewController {
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let newsViewController = storyboard.instantiateViewController(identifier: "NewsViewController")
-        return newsViewController as! NewsViewController
+        let viewModel = NewsViewModel(screenType: screenType)
+        let storyboard = UIStoryboard(name: "NewsViewController", bundle: nil)
+        let vc = storyboard.instantiateViewController(
+            identifier: "NewsViewController", creator: { coder in
+                return NewsViewController(coder: coder, viewModel: viewModel)
+            })
+        
+        return vc
     }
 }

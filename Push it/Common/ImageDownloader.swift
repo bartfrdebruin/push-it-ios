@@ -16,8 +16,9 @@ enum DownloadError: Error {
 
 final class ImageDownloader {
     
+    @discardableResult
     public static func downloadImage(forURL url: URL,
-                                     completion: @escaping (Result<UIImage, Error>) -> Void) {
+                                     completion: @escaping (Result<UIImage, Error>) -> Void) -> URLSessionDataTask {
     
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -39,5 +40,6 @@ final class ImageDownloader {
         }
         
         task.resume()
+        return task
     }
 }
