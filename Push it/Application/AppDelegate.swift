@@ -53,7 +53,10 @@ extension AppDelegate {
         fetchCompletionHandler completionHandler:
             @escaping (UIBackgroundFetchResult) -> Void) {
         
-        print("Push didReceiveRemoteNotification")
+        if let value = userInfo["data"] as? String {
+            print("Push didReceiveRemoteNotification", value) // output: "some-value"
+        }
+        
         OSLog.logMsg("Application didReceiveRemoteNotification", osLog: .backgroundForgroundLog)
 
         appController.appDidReceiveMessage(userInfo)
