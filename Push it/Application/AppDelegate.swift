@@ -25,20 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
-//
-//extension AppDelegate: MessagingDelegate {
-//    
-//    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-//        
-//        let tokenDict = ["token": fcmToken ?? ""]
-//        NotificationCenter.default.post(
-//            name: Notification.Name("FCMToken"),
-//            object: nil,
-//            userInfo: tokenDict)
-//        
-//        print("FCMToken: ", fcmToken)
-//    }
-//}
 
 // MARK: - Push
 extension AppDelegate {
