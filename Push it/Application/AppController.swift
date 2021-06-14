@@ -8,9 +8,6 @@
 import UIKit
 import UserNotifications
 import OSLog
-import Firebase
-import FirebaseAnalytics
-import FirebaseMessaging
 
 class AppController: NSObject {
     
@@ -116,14 +113,11 @@ extension AppController {
             DispatchQueue.main.async {
                 
                 UIApplication.shared.registerForRemoteNotifications()
-                Messaging.messaging().delegate = self
             }
         }
     }
     
     func didReceivePushToken(deviceToken: Data) {
-        
-        Messaging.messaging().apnsToken = deviceToken
         
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
@@ -143,20 +137,6 @@ extension AppController {
         if let query = message["newsQuery"] as? String {
             tabBarController.presentCustomNews(with: query)
         }
-    }
-}
-
-extension AppController: MessagingDelegate {
-
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        
-        let tokenDict = ["token": fcmToken ?? ""]
-        NotificationCenter.default.post(
-            name: Notification.Name("FCMToken"),
-            object: nil,
-            userInfo: tokenDict)
-        
-        print("FCMToken: ", fcmToken)
     }
 }
 

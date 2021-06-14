@@ -8,8 +8,6 @@
 import UIKit
 import UserNotifications
 import os.log
-import Firebase
-import FirebaseMessaging
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,26 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        FirebaseApp.configure()
         appController.startApp()
         
         return true
     }
 }
-//
-//extension AppDelegate: MessagingDelegate {
-//    
-//    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-//        
-//        let tokenDict = ["token": fcmToken ?? ""]
-//        NotificationCenter.default.post(
-//            name: Notification.Name("FCMToken"),
-//            object: nil,
-//            userInfo: tokenDict)
-//        
-//        print("FCMToken: ", fcmToken)
-//    }
-//}
 
 // MARK: - Push
 extension AppDelegate {

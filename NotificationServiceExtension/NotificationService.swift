@@ -23,7 +23,6 @@ class NotificationService: UNNotificationServiceExtension {
             
             guard let imageURLString =
                     bestAttemptContent.userInfo["image"] as? String else {
-                
                 bestAttemptContent.title = "cannot find the image"
                 contentHandler(bestAttemptContent)
                 return
@@ -52,8 +51,6 @@ class NotificationService: UNNotificationServiceExtension {
                 
                 contentHandler(bestAttemptContent)
             }
-            
-//            contentHandler(bestAttemptContent)
         }
     }
     

@@ -41,8 +41,6 @@
 		CC8A9638265D7A7B003DAF6D /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8A9637265D7A7B003DAF6D /* AppController.swift */; };
 		CC8A9645265D7AC9003DAF6D /* PushItTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8A9644265D7AC9003DAF6D /* PushItTabBarController.swift */; };
 		CCB0B96026762BE600FB8923 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCB0B95F26762BE600FB8923 /* GoogleService-Info.plist */; };
-		CCB0B96326762D5000FB8923 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = CCB0B96226762D5000FB8923 /* FirebaseAnalytics */; };
-		CCB0B96826763AFE00FB8923 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = CCB0B96726763AFE00FB8923 /* FirebaseMessaging */; };
 		CCC0034A26679BB2003983C6 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0034926679BB2003983C6 /* DateFormatter.swift */; };
 		CCC0035026679E29003983C6 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0034F26679E29003983C6 /* Date.swift */; };
 		CCC003572667B9A6003983C6 /* LocalNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC003562667B9A6003983C6 /* LocalNotificationsViewController.swift */; };
@@ -151,8 +149,6 @@
 			files = (
 				CC118DCC2640715F00E17559 /* RxRelay in Frameworks */,
 				CC118DCA2640715F00E17559 /* RxCocoa in Frameworks */,
-				CCB0B96826763AFE00FB8923 /* FirebaseMessaging in Frameworks */,
-				CCB0B96326762D5000FB8923 /* FirebaseAnalytics in Frameworks */,
 				CC118DC82640715F00E17559 /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,8 +405,6 @@
 				CC118DC72640715F00E17559 /* RxSwift */,
 				CC118DC92640715F00E17559 /* RxCocoa */,
 				CC118DCB2640715F00E17559 /* RxRelay */,
-				CCB0B96226762D5000FB8923 /* FirebaseAnalytics */,
-				CCB0B96726763AFE00FB8923 /* FirebaseMessaging */,
 			);
 			productName = "Push it";
 			productReference = 1DE8F7DE2602477F00079E0C /* Push it.app */;
@@ -1017,16 +1011,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CC118DC62640715F00E17559 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxRelay;
-		};
-		CCB0B96226762D5000FB8923 /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCB0B96126762D4F00FB8923 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		CCB0B96726763AFE00FB8923 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CCB0B96126762D4F00FB8923 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
