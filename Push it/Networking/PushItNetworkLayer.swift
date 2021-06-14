@@ -43,4 +43,10 @@ final class PushItNetworkLayer: Networking {
         let route = PushItNetworkRoute.sports
         return request(for: route)
     }
+    
+    func custom(query: String) -> Single<News> {
+        
+        let route = PushItNetworkRoute.custom(query)
+        return request(for: route)
+    }
 }

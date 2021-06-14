@@ -12,13 +12,14 @@ enum PushItNetworkRoute {
     case sports
     case foreign
     case domestic
+    case custom(String)
 }
 
 extension PushItNetworkRoute: NetworkRoute {
     
     var method: HTTPMethod {
         switch self {
-        case .headlines, .domestic, .foreign, .sports:
+        case .headlines, .domestic, .foreign, .sports, .custom(_):
             return .GET
         }
     }
@@ -33,12 +34,14 @@ extension PushItNetworkRoute: NetworkRoute {
             return "/everything?q=buitenland&language=nl&\(components())"
         case .sports:
             return "/everything?q=sports&language=nl&\(components())"
+        case .custom(let query):
+            return "/everything?q=\(query)&language=nl&\(components())"
         }
     }
     
     var body: Data? {
         switch self {
-        case .headlines, .domestic, .foreign, .sports:
+        case .headlines, .domestic, .foreign, .sports, .custom(_):
             return nil
         }
     }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,12 +16,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kbP-37-Kes">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="kbP-37-Kes">
+                                <rect key="frame" x="30" y="253" width="354" height="400"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NA8-6G-wce">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="409"/>
-                                        <state key="normal" title="Send local Notifaction Now">
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="180"/>
+                                        <state key="normal" title="Send local notification">
                                             <color key="titleColor" systemColor="labelColor"/>
                                         </state>
                                         <connections>
@@ -29,8 +29,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="94N-Id-G6q">
-                                        <rect key="frame" x="0.0" y="409" width="414" height="409"/>
-                                        <state key="normal" title="Send Local Notifaction with 30 second delay">
+                                        <rect key="frame" x="0.0" y="220" width="354" height="180"/>
+                                        <state key="normal" title="Send local notifaction with delay">
                                             <color key="titleColor" systemColor="labelColor"/>
                                         </state>
                                         <connections>
@@ -38,17 +38,23 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="SGF-sN-YGC"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dL9-51-Wtm"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="dL9-51-Wtm" firstAttribute="trailing" secondItem="kbP-37-Kes" secondAttribute="trailing" id="7O1-wL-snq"/>
-                            <constraint firstItem="kbP-37-Kes" firstAttribute="top" secondItem="dL9-51-Wtm" secondAttribute="top" id="Fve-yr-aka"/>
-                            <constraint firstItem="dL9-51-Wtm" firstAttribute="bottom" secondItem="kbP-37-Kes" secondAttribute="bottom" id="cyb-Lo-hev"/>
-                            <constraint firstItem="kbP-37-Kes" firstAttribute="leading" secondItem="dL9-51-Wtm" secondAttribute="leading" id="eq1-Oq-kBW"/>
+                            <constraint firstItem="dL9-51-Wtm" firstAttribute="trailing" secondItem="kbP-37-Kes" secondAttribute="trailing" constant="30" id="7O1-wL-snq"/>
+                            <constraint firstItem="kbP-37-Kes" firstAttribute="centerY" secondItem="dL9-51-Wtm" secondAttribute="centerY" id="VzL-QH-zw3"/>
+                            <constraint firstItem="kbP-37-Kes" firstAttribute="leading" secondItem="dL9-51-Wtm" secondAttribute="leading" constant="30" id="eq1-Oq-kBW"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="notificationButton" destination="NA8-6G-wce" id="aAU-GW-ZKA"/>
+                        <outlet property="notificationDelayButton" destination="94N-Id-G6q" id="zfT-4U-uu7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qxt-Xg-gL6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

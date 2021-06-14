@@ -18,11 +18,13 @@ class NotificationService: UNNotificationServiceExtension {
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
                 
         if let bestAttemptContent = bestAttemptContent {
-            bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
-            bestAttemptContent.subtitle = "\(bestAttemptContent.subtitle) [modified]"
-
+            bestAttemptContent.title = "\(bestAttemptContent.title)"
+            bestAttemptContent.subtitle = "\(bestAttemptContent.subtitle)"
+            
             guard let imageURLString =
                     bestAttemptContent.userInfo["image"] as? String else {
+                
+                bestAttemptContent.title = "cannot find the image"
                 contentHandler(bestAttemptContent)
                 return
             }
@@ -34,7 +36,7 @@ class NotificationService: UNNotificationServiceExtension {
                     let image = image,
                     let fileURL = self.saveImageAttachment(
                         image: image,
-                        forIdentifier: "attachment.png") else {
+                        forIdentifier: "attachment.jpg") else {
                     contentHandler(bestAttemptContent)
                     return
                 }
@@ -50,6 +52,8 @@ class NotificationService: UNNotificationServiceExtension {
                 
                 contentHandler(bestAttemptContent)
             }
+            
+//            contentHandler(bestAttemptContent)
         }
     }
     
@@ -103,7 +107,7 @@ extension NotificationService {
             
             let fileURL = directoryPath.appendingPathComponent(identifier)
             
-            guard let imageData = image.pngData() else {
+            guard let imageData = image.jpegData(compressionQuality: 0.8) else {
                 return nil
             }
             

@@ -18,12 +18,14 @@ enum State {
 class NewsViewModel {
     
     private let screenType: ScreenType
+    private let searchQuery: String?
     private(set) var articles: [Article] = []
     private let networkLayer = PushItNetworkLayer()
     private let disposeBag = DisposeBag()
     
-    init(screenType: ScreenType) {
+    init(screenType: ScreenType, searchQuery: String? = nil) {
         self.screenType = screenType
+        self.searchQuery = searchQuery
     }
 
     private(set) var state: State = .initial {
@@ -69,6 +71,8 @@ class NewsViewModel {
             return networkLayer.foreignNews()
         case .sport:
             return networkLayer.headlines()
+        case .custom(let query):
+            return networkLayer.custom(query: query)
         }
     }
     
