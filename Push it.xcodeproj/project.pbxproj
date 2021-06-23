@@ -499,7 +499,6 @@
 			mainGroup = 1DE8F7D52602477F00079E0C;
 			packageReferences = (
 				CC118DC62640715F00E17559 /* XCRemoteSwiftPackageReference "RxSwift" */,
-				CCB0B96126762D4F00FB8923 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 1DE8F7DF2602477F00079E0C /* Products */;
 			projectDirPath = "";
@@ -984,14 +983,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 6.1.0;
-			};
-		};
-		CCB0B96126762D4F00FB8923 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.1.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
