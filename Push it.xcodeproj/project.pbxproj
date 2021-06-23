@@ -34,11 +34,11 @@
 		CC5E95C3263ED0C900E9D3EF /* NewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC5E95C2263ED0C900E9D3EF /* NewsCollectionViewCell.xib */; };
 		CC5E95C9263ED37E00E9D3EF /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5E95C8263ED37E00E9D3EF /* NewsDetailViewController.swift */; };
 		CC5E95CF263ED39100E9D3EF /* NewsDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC5E95CE263ED39100E9D3EF /* NewsDetailViewController.storyboard */; };
+		CC68F9DC2683692200B97EB9 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8A9637265D7A7B003DAF6D /* AppController.swift */; };
 		CC74B0662618672E00C7AF56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B05A2618672E00C7AF56 /* AppDelegate.swift */; };
 		CC74B0692618672E00C7AF56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC74B05E2618672E00C7AF56 /* Assets.xcassets */; };
 		CC74B06A2618672E00C7AF56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC74B05F2618672E00C7AF56 /* LaunchScreen.storyboard */; };
 		CC74B0882618693200C7AF56 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B0872618693200C7AF56 /* Configuration.swift */; };
-		CC8A9638265D7A7B003DAF6D /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8A9637265D7A7B003DAF6D /* AppController.swift */; };
 		CC8A9645265D7AC9003DAF6D /* PushItTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8A9644265D7AC9003DAF6D /* PushItTabBarController.swift */; };
 		CCB0B96026762BE600FB8923 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCB0B95F26762BE600FB8923 /* GoogleService-Info.plist */; };
 		CCC0034A26679BB2003983C6 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0034926679BB2003983C6 /* DateFormatter.swift */; };
@@ -570,7 +570,6 @@
 				CCFA0E0C2621B8300047D058 /* NewsViewModel.swift in Sources */,
 				CC25FEFC267148620069A2E4 /* NetworkValidation.swift in Sources */,
 				CCC003572667B9A6003983C6 /* LocalNotificationsViewController.swift in Sources */,
-				CC8A9638265D7A7B003DAF6D /* AppController.swift in Sources */,
 				CCC0035026679E29003983C6 /* Date.swift in Sources */,
 				CC25FEFE267148620069A2E4 /* NetworkProvider.swift in Sources */,
 				CC25FEF7267148620069A2E4 /* PushItNetworkEnvironment.swift in Sources */,
@@ -582,6 +581,7 @@
 				CC25FEF3267148620069A2E4 /* PushItNetworkLayer.swift in Sources */,
 				CC25FEF6267148620069A2E4 /* Article.swift in Sources */,
 				CC25FEFF267148620069A2E4 /* NetworkError.swift in Sources */,
+				CC68F9DC2683692200B97EB9 /* AppController.swift in Sources */,
 				CCD6901B2620825900BBE472 /* ImageDownloader.swift in Sources */,
 				CCFA0E142621B86A0047D058 /* NewsCollectionViewCell.swift in Sources */,
 				CCC4761026737AD2009F9013 /* OSLog.swift in Sources */,

@@ -37,7 +37,6 @@ final class PushItNetworkLayer: Networking {
         return request(for: route)
     }
     
-    
     func sports() -> Single<News> {
         
         let route = PushItNetworkRoute.sports

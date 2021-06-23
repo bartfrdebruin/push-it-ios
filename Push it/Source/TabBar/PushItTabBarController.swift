@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum ScreenType: CaseIterable {
+enum ScreenType {
     case headlines
     case domestic
     case foreign

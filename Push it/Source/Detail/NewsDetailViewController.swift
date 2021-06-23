@@ -10,8 +10,13 @@ import WebKit
 import RxSwift
 
 class NewsDetailViewController: UIViewController {
-    
-    @IBOutlet private weak var webView: WKWebView!
+
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var sourceLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var authorLabel: UILabel!
+    @IBOutlet private weak var contentLabel: UILabel!
     
     private let viewModel: NewsDetailViewModel
     
@@ -30,22 +35,59 @@ class NewsDetailViewController: UIViewController {
         super.viewDidLoad()
 
         bindObservables()
+        viewModel.getArticle()
     }
     
-    private func bindObservables() {
+    func bindObservables() {
         
-        viewModel.observableURL
-            .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] (event) in
-    
-                guard let element = event.element,
-                      let url = element else {
-                    return
+        viewModel.refreshState = { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
+            switch self.viewModel.state {
+            case .initial, .loading:        
+                print("loading")
+            case .result:
+                
+                DispatchQueue.main.async {
+                    self.configure()
                 }
-                
-                self?.webView.load(URLRequest(url: url))
-                
-            }.disposed(by: disposeBag)
+
+            case .error(let error):
+                print("error: ", error)
+            }
+        }
+    }
+    
+    private func configure() {
+        
+        if let image = viewModel.image() {
+            imageView.image = image
+            imageView.isHidden = false
+        }
+        
+        titleLabel.text = viewModel.title()
+        titleLabel.isHidden = false
+        
+        if let author = viewModel.author() {
+            authorLabel.text = author
+            authorLabel.isHidden = false
+        }
+        
+        if let content = viewModel.content() {
+            contentLabel.text = content
+            contentLabel.isHidden = false
+        }
+        
+        if let description = viewModel.description() {
+            descriptionLabel.text = description
+            descriptionLabel.isHidden = false
+        }
+        
+        sourceLabel.text = viewModel.source()
+        sourceLabel.isHidden = false
     }
 }
 
