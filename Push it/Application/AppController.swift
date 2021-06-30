@@ -18,7 +18,7 @@ class AppController: NSObject {
     }
     
     /// Main UI
-    let tabBarController = PushItTabBarController()
+    private let tabBarController = PushItTabBarController()
     
     /// Application window
     private lazy var window = {
