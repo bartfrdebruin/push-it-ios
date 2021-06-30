@@ -104,9 +104,12 @@ extension NewsViewController {
         
         return UICollectionViewDiffableDataSource(collectionView: collectionView) { (collectionView, indexPath, source) -> UICollectionViewCell? in
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCollectionViewCell.identifier, for: indexPath) as! NewsCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCollectionViewCell.identifier,
+                                                          for: indexPath) as! NewsCollectionViewCell
+                        
+            // I know this is not full MVC, this view should be stupid, but doing this overhere would create
+            // so much ugly ness, i cannot bear to see it. 
             cell.configure(with: source)
-            
             return cell
         }
     }
