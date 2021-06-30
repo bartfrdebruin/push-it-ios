@@ -6,20 +6,29 @@
 //
 
 import UIKit
+import RxSwift
 
 class NewsViewController: UIViewController {
     
-    private let viewModel: NewsViewModel
-
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var errorLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
     
     // DataSource
     private lazy var dataSource = configureDataSource()
+    private var articles: [Article] = []
+    private let screenType: ScreenType
     
-    init?(coder: NSCoder, viewModel: NewsViewModel) {
-        self.viewModel = viewModel
+    // Network
+    private let networkLayer = PushItNetworkLayer()
+
+    // Rx
+    private let disposeBag = DisposeBag()
+    
+    init?(coder: NSCoder,
+          screenType: ScreenType) {
+        self.screenType = screenType
+        
         super.init(coder: coder)
     }
     
@@ -30,10 +39,56 @@ class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bindObservables()
         configureCollectionView()
-        viewModel.getNews()
+        getNews()
     }
+    
+    func getNews() {
+
+        news()
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] (news) in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                self.articles = news.articles
+                self.configureSnapshot()
+                self.activityIndicator.stopAnimating()
+                
+            } onFailure: { [weak self] (error) in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                self.activityIndicator.stopAnimating()
+                self.errorLabel.text = error.localizedDescription
+                self.errorLabel.isHidden = false
+                
+            }.disposed(by: disposeBag)
+    }
+    
+    private func news() -> Single<News> {
+        
+        switch screenType {
+        case .headlines:
+            return networkLayer.headlines()
+        case .domestic:
+            return networkLayer.domesticNews()
+        case .foreign:
+            return networkLayer.foreignNews()
+        case .sport:
+            return networkLayer.headlines()
+        case .custom(let query):
+            return networkLayer.custom(query: query)
+        }
+    }
+}
+
+// MARK: - CollectionView
+extension NewsViewController {
     
     private func configureCollectionView() {
         
@@ -61,54 +116,26 @@ class NewsViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Article>()
         snapshot.appendSections([1])
 
-        snapshot.appendItems(viewModel.articles)
+        snapshot.appendItems(articles)
         dataSource.apply(snapshot)
-    }
-    
-    
-    func bindObservables() {
-        
-        viewModel.refreshState = { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            switch self.viewModel.state {
-            case .initial, .loading:
-        
-                self.activityIndicator.startAnimating()
-                print("loading")
-            case .result:
-                
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.errorLabel.isHidden = true
-                    self.configureSnapshot()
-                }
-
-            case .error(let error):
-                print("error: ", error)
-            }
-        }
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension NewsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard viewModel.articles.count > indexPath.item,
-              let article = viewModel.article(at: indexPath) else {
+        guard articles.count > indexPath.item else {
             return
         }
 
-        let vc = NewsDetailViewController.make(with: article)
+        let vc = NewsDetailViewController.make(with: articles[indexPath.item])
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
-// MARK: - CollectionViewFlowLayoutDelegate
+// MARK: - CompositionalLayout
 extension NewsViewController {
     
     private func layout() -> UICollectionViewLayout {
@@ -138,11 +165,10 @@ extension NewsViewController {
 
     static func make(with screenType: ScreenType) -> NewsViewController {
         
-        let viewModel = NewsViewModel(screenType: screenType)
         let storyboard = UIStoryboard(name: "NewsViewController", bundle: nil)
         let vc = storyboard.instantiateViewController(
             identifier: "NewsViewController", creator: { coder in
-                return NewsViewController(coder: coder, viewModel: viewModel)
+                return NewsViewController(coder: coder, screenType: screenType)
             })
         
         return vc
