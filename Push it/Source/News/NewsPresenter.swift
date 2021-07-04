@@ -1,40 +1,33 @@
 //
-//  NewsViewModel.swift
+//  NewsPresenter.swift
 //  Push it
 //
-//  Created by Bart on 03/04/2021.
+//  Created by Bart on 04/07/2021.
 //
 
-import Foundation
+import UIKit
 import RxSwift
 
-enum State {
-    case initial
-    case loading
-    case result
-    case error(Error)
-}
-
-class NewsViewModel {
+class NewsPresenter {
     
+    // View
+    weak var view: NewsViewController!
+    
+    // Types
     private let screenType: ScreenType
     private let searchQuery: String?
     private(set) var articles: [Article] = []
+    
+    // Network
     private let networkLayer = PushItNetworkLayer()
+    
+    // Rx
     private let disposeBag = DisposeBag()
     
     init(screenType: ScreenType, searchQuery: String? = nil) {
         self.screenType = screenType
         self.searchQuery = searchQuery
     }
-
-    private(set) var state: State = .initial {
-        didSet {
-            refreshState()
-        }
-    }
-    
-    var refreshState: () -> Void = {}
     
     func getNews() {
         
@@ -47,7 +40,8 @@ class NewsViewModel {
                 }
                 
                 self.articles = news.articles
-                self.state = .result
+                self.view.stopActivitiyIndicator()
+                self.view.configureSnapshot()
                 
             } onFailure: { [weak self] (error) in
                 
@@ -55,8 +49,8 @@ class NewsViewModel {
                     return
                 }
                 
-                self.state = .error(error)
-                
+                self.view.showError(with: error)
+
             }.disposed(by: disposeBag)
     }
     
@@ -75,18 +69,42 @@ class NewsViewModel {
             return networkLayer.custom(query: query)
         }
     }
+}
+
+// MARK: - UICollectionView
+extension NewsPresenter {
     
-    func numberOfArticles() -> Int {
+    func didSelectItem(at indexPath: IndexPath) {
         
-        return articles.count
-    }
-    
-    func article(at indexPath: IndexPath) -> Article? {
-        
-        guard indexPath.item < articles.count else {
-            return nil
+        guard articles.count > indexPath.item else {
+            return
         }
         
-        return articles[indexPath.item]
+        let article = articles[indexPath.item]
+        let newsDetailPresenter = NewsDetailPresenter.make(with: article)
+        
+        guard let viewController = newsDetailPresenter.view else {
+            return
+        }
+
+        view.navigationController?.pushViewController(viewController, animated: true)
     }
 }
+
+// MARK: - Factory
+extension NewsPresenter {
+
+    static func make(with screenType: ScreenType) -> NewsPresenter {
+        
+        let presenter = NewsPresenter(screenType: screenType)
+        let storyboard = UIStoryboard(name: "NewsViewController", bundle: nil)
+        let vc = storyboard.instantiateViewController(
+            identifier: "NewsViewController", creator: { coder in
+                return NewsViewController(coder: coder, presenter: presenter)
+            })
+        
+        presenter.view = vc
+        return presenter
+    }
+}
+

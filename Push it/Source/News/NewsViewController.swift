@@ -9,7 +9,7 @@ import UIKit
 
 class NewsViewController: UIViewController {
     
-    private let viewModel: NewsViewModel
+    private let presenter: NewsPresenter
 
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var errorLabel: UILabel!
@@ -18,8 +18,8 @@ class NewsViewController: UIViewController {
     // DataSource
     private lazy var dataSource = configureDataSource()
     
-    init?(coder: NSCoder, viewModel: NewsViewModel) {
-        self.viewModel = viewModel
+    init?(coder: NSCoder, presenter: NewsPresenter) {
+        self.presenter = presenter
         super.init(coder: coder)
     }
     
@@ -30,9 +30,8 @@ class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bindObservables()
         configureCollectionView()
-        viewModel.getNews()
+        presenter.getNews()
     }
     
     private func configureCollectionView() {
@@ -41,7 +40,6 @@ class NewsViewController: UIViewController {
         collectionView.dataSource = dataSource
         collectionView.register(UINib(nibName: NewsCollectionViewCell.identifier, bundle: nil),
                                 forCellWithReuseIdentifier: NewsCollectionViewCell.identifier)
-
         collectionView.collectionViewLayout = layout()
     }
     
@@ -49,9 +47,9 @@ class NewsViewController: UIViewController {
         
         return UICollectionViewDiffableDataSource(collectionView: collectionView) { (collectionView, indexPath, source) -> UICollectionViewCell? in
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCollectionViewCell.identifier, for: indexPath) as! NewsCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCollectionViewCell.identifier,
+                                                          for: indexPath) as! NewsCollectionViewCell
             cell.configure(with: source)
-            
             return cell
         }
     }
@@ -61,50 +59,17 @@ class NewsViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Article>()
         snapshot.appendSections([1])
 
-        snapshot.appendItems(viewModel.articles)
+        snapshot.appendItems(presenter.articles)
         dataSource.apply(snapshot)
-    }
-    
-    
-    func bindObservables() {
-        
-        viewModel.refreshState = { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            switch self.viewModel.state {
-            case .initial, .loading:
-        
-                self.activityIndicator.startAnimating()
-                print("loading")
-            case .result:
-                
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.errorLabel.isHidden = true
-                    self.configureSnapshot()
-                }
-
-            case .error(let error):
-                print("error: ", error)
-            }
-        }
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension NewsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard viewModel.articles.count > indexPath.item,
-              let article = viewModel.article(at: indexPath) else {
-            return
-        }
-
-        let vc = NewsDetailViewController.make(with: article)
-        navigationController?.pushViewController(vc, animated: true)
+        presenter.didSelectItem(at: indexPath)
     }
 }
 
@@ -133,18 +98,22 @@ extension NewsViewController {
     }
 }
 
-// MARK: - Factory
+// MARK: - Error Handling
 extension NewsViewController {
+    
+    func showError(with error: Error) {
+        
+        activityIndicator.stopAnimating()
+        errorLabel.text = error.localizedDescription
+        errorLabel.isHidden = false
+    }
+}
 
-    static func make(with screenType: ScreenType) -> NewsViewController {
+// MARK: - Loading
+extension NewsViewController {
+    
+    func stopActivitiyIndicator() {
         
-        let viewModel = NewsViewModel(screenType: screenType)
-        let storyboard = UIStoryboard(name: "NewsViewController", bundle: nil)
-        let vc = storyboard.instantiateViewController(
-            identifier: "NewsViewController", creator: { coder in
-                return NewsViewController(coder: coder, viewModel: viewModel)
-            })
-        
-        return vc
+        activityIndicator.stopAnimating()
     }
 }
