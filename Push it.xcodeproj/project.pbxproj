@@ -40,7 +40,6 @@
 		CC74B0882618693200C7AF56 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B0872618693200C7AF56 /* Configuration.swift */; };
 		CC7750BB2691AC3E00EDAD09 /* NewsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7750BA2691AC3E00EDAD09 /* NewsPresenter.swift */; };
 		CC7750BD2691BA5400EDAD09 /* NewsDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7750BC2691BA5400EDAD09 /* NewsDetailPresenter.swift */; };
-		CC7750C02691BE8100EDAD09 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = CC7750BF2691BE8100EDAD09 /* AlamofireImage */; };
 		CC8A9645265D7AC9003DAF6D /* PushItTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8A9644265D7AC9003DAF6D /* PushItTabBarController.swift */; };
 		CCB0B96026762BE600FB8923 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCB0B95F26762BE600FB8923 /* GoogleService-Info.plist */; };
 		CCC0034A26679BB2003983C6 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0034926679BB2003983C6 /* DateFormatter.swift */; };
@@ -149,7 +148,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC118DCC2640715F00E17559 /* RxRelay in Frameworks */,
-				CC7750C02691BE8100EDAD09 /* AlamofireImage in Frameworks */,
 				CC118DCA2640715F00E17559 /* RxCocoa in Frameworks */,
 				CC118DC82640715F00E17559 /* RxSwift in Frameworks */,
 			);
@@ -407,7 +405,6 @@
 				CC118DC72640715F00E17559 /* RxSwift */,
 				CC118DC92640715F00E17559 /* RxCocoa */,
 				CC118DCB2640715F00E17559 /* RxRelay */,
-				CC7750BF2691BE8100EDAD09 /* AlamofireImage */,
 			);
 			productName = "Push it";
 			productReference = 1DE8F7DE2602477F00079E0C /* Push it.app */;
@@ -1015,11 +1012,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CC118DC62640715F00E17559 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxRelay;
-		};
-		CC7750BF2691BE8100EDAD09 /* AlamofireImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CC7750BE2691BE8100EDAD09 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
-			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
