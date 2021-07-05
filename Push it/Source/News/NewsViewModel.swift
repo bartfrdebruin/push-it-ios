@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxCocoa
 import RxSwift
 
 enum State {
@@ -17,25 +18,29 @@ enum State {
 
 class NewsViewModel {
     
-    private let screenType: ScreenType
-    private let searchQuery: String?
-    private(set) var articles: [Article] = []
+    // Network & Rx
     private let networkLayer = PushItNetworkLayer()
     private let disposeBag = DisposeBag()
+    
+    // ScreenTypes
+    private let screenType: ScreenType
+    private let searchQuery: String?
+    
+    // Articles
+    private(set) var articles: [Article] = []
+    
+    // State
+    private var stateRelay = BehaviorRelay<State>(value: .loading)
+    
+    var stateObservable: Observable<State> {
+        return stateRelay.asObservable()
+    }
     
     init(screenType: ScreenType, searchQuery: String? = nil) {
         self.screenType = screenType
         self.searchQuery = searchQuery
     }
 
-    private(set) var state: State = .initial {
-        didSet {
-            refreshState()
-        }
-    }
-    
-    var refreshState: () -> Void = {}
-    
     func getNews() {
         
         news()
@@ -47,7 +52,7 @@ class NewsViewModel {
                 }
                 
                 self.articles = news.articles
-                self.state = .result
+                self.stateRelay.accept(.result)
                 
             } onFailure: { [weak self] (error) in
                 
@@ -55,7 +60,7 @@ class NewsViewModel {
                     return
                 }
                 
-                self.state = .error(error)
+                self.stateRelay.accept(.error(error))
                 
             }.disposed(by: disposeBag)
     }

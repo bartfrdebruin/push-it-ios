@@ -332,9 +332,9 @@
 		CC988ABE263825750090EF83 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				CC5E95CE263ED39100E9D3EF /* NewsDetailViewController.storyboard */,
 				CC5E95C8263ED37E00E9D3EF /* NewsDetailViewController.swift */,
 				CC118DC026406F2000E17559 /* NewsDetailViewModel.swift */,
-				CC5E95CE263ED39100E9D3EF /* NewsDetailViewController.storyboard */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -349,8 +349,8 @@
 		CCC003552667B98E003983C6 /* Local Notifications */ = {
 			isa = PBXGroup;
 			children = (
-				CCC003562667B9A6003983C6 /* LocalNotificationsViewController.swift */,
 				CCC0035C2667BA26003983C6 /* LocationNotificationsViewController.storyboard */,
+				CCC003562667B9A6003983C6 /* LocalNotificationsViewController.swift */,
 			);
 			path = "Local Notifications";
 			sourceTree = "<group>";

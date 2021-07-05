@@ -6,14 +6,20 @@
 //
 
 import UIKit
+import RxSwift
 
 class NewsViewController: UIViewController {
     
-    private let viewModel: NewsViewModel
-
+    // UI
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var errorLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
+    
+    // ViewModel
+    private let viewModel: NewsViewModel
+
+    // Rx
+    private let disposeBag = DisposeBag()
     
     // DataSource
     private lazy var dataSource = configureDataSource()
@@ -65,32 +71,30 @@ class NewsViewController: UIViewController {
         dataSource.apply(snapshot)
     }
     
-    
     func bindObservables() {
         
-        viewModel.refreshState = { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            switch self.viewModel.state {
-            case .initial, .loading:
-        
-                self.activityIndicator.startAnimating()
-                print("loading")
-            case .result:
+        viewModel.stateObservable
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] articles in
                 
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.errorLabel.isHidden = true
-                    self.configureSnapshot()
+                guard let self = self else {
+                    return
                 }
-
-            case .error(let error):
-                print("error: ", error)
-            }
-        }
+                
+                self.configureSnapshot()
+                self.activityIndicator.stopAnimating()
+                
+            }, onError: { [weak self] error in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                self.errorLabel.text = error.localizedDescription
+                self.errorLabel.isHidden = false
+                self.activityIndicator.stopAnimating()
+                
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -98,7 +102,7 @@ extension NewsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard viewModel.articles.count > indexPath.item,
+        guard viewModel.numberOfArticles() > indexPath.item,
               let article = viewModel.article(at: indexPath) else {
             return
         }

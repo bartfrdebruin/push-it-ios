@@ -11,6 +11,7 @@ import RxSwift
 
 class NewsDetailViewController: UIViewController {
 
+    // UI
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var sourceLabel: UILabel!
     @IBOutlet private weak var titleLabel: UILabel!
@@ -18,8 +19,10 @@ class NewsDetailViewController: UIViewController {
     @IBOutlet private weak var authorLabel: UILabel!
     @IBOutlet private weak var contentLabel: UILabel!
     
+    // ViewModel
     private let viewModel: NewsDetailViewModel
     
+    // Rx
     private let disposeBag = DisposeBag()
     
     init?(coder: NSCoder, viewModel: NewsDetailViewModel) {
@@ -40,25 +43,17 @@ class NewsDetailViewController: UIViewController {
     
     func bindObservables() {
         
-        viewModel.refreshState = { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            switch self.viewModel.state {
-            case .initial, .loading:        
-                print("loading")
-            case .result:
+        viewModel.stateObservable
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] _ in
                 
-                DispatchQueue.main.async {
-                    self.configure()
+                guard let self = self else {
+                    return
                 }
-
-            case .error(let error):
-                print("error: ", error)
-            }
-        }
+                
+                self.configure()
+                
+            }.disposed(by: disposeBag)
     }
     
     private func configure() {

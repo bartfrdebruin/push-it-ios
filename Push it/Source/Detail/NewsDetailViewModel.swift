@@ -5,21 +5,22 @@
 //  Created by Bart on 03/05/2021.
 //
 
-import Foundation
-import  UIKit
+import UIKit
+import RxSwift
+import RxCocoa
 
 class NewsDetailViewModel {
     
+    // Article
     private var article: Article
     private var articleImage: UIImage?
     
-    private(set) var state: State = .initial {
-        didSet {
-            refreshState()
-        }
-    }
+    // State
+    private var stateRelay = BehaviorRelay<State>(value: .loading)
     
-    var refreshState: () -> Void = {}
+    var stateObservable: Observable<State> {
+        return stateRelay.asObservable()
+    }
 
     init(article: Article) {
         self.article = article
@@ -69,9 +70,9 @@ extension NewsDetailViewModel {
             switch result {
             case .success(let image):
                 self?.articleImage = image
-                self?.state = .result
+                self?.stateRelay.accept(.result)
             case .failure(let error):
-                print("Error", error)
+                self?.stateRelay.accept(.error(error))
             }
         }
     }
