@@ -6,7 +6,15 @@
 //
 
 import Foundation
+import RxCocoa
 import RxSwift
+
+enum State {
+    case initial
+    case loading
+    case result
+    case error(Error)
+}
 
 class PushItInteractor {
         
@@ -15,35 +23,14 @@ class PushItInteractor {
 
     // Network
     private let networkLayer = PushItNetworkLayer()
-    
-    // Rx
-    private let disposeBag = DisposeBag()
-    
+
     init(screenType: ScreenType) {
         self.screenType = screenType
     }
     
-    func getNews() {
+    func getNews() -> Single<News> {
         
-        news()
-            .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] (news) in
-                
-                guard let self = self else {
-                    return
-                }
-                
-                self.articles = news.articles
-                
-            } onFailure: { [weak self] (error) in
-                
-                guard let self = self else {
-                    return
-                }
-                
-                
-                
-            }.disposed(by: disposeBag)
+        return news()
     }
     
     private func news() -> Single<News> {

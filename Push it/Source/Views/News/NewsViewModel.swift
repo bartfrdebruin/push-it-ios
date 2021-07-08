@@ -8,13 +8,6 @@
 import Foundation
 import RxSwift
 
-enum State {
-    case initial
-    case loading
-    case result
-    case error(Error)
-}
-
 class NewsViewModel {
     
     private let screenType: ScreenType

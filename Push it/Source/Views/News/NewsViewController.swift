@@ -68,6 +68,8 @@ class NewsViewController: UIViewController {
     
     func bindObservables() {
         
+        
+        
         viewModel.refreshState = { [weak self] in
             
             guard let self = self else {
