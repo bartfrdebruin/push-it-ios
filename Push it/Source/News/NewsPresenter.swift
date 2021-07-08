@@ -15,7 +15,6 @@ class NewsPresenter {
     
     // Types
     private let screenType: ScreenType
-    private let searchQuery: String?
     private(set) var articles: [Article] = []
     
     // Network
@@ -24,9 +23,8 @@ class NewsPresenter {
     // Rx
     private let disposeBag = DisposeBag()
     
-    init(screenType: ScreenType, searchQuery: String? = nil) {
+    init(screenType: ScreenType) {
         self.screenType = screenType
-        self.searchQuery = searchQuery
     }
     
     func getNews() {
