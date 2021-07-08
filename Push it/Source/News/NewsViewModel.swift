@@ -24,7 +24,6 @@ class NewsViewModel {
     
     // ScreenTypes
     private let screenType: ScreenType
-    private let searchQuery: String?
     
     // Articles
     private(set) var articles: [Article] = []
@@ -36,9 +35,8 @@ class NewsViewModel {
         return stateRelay.asObservable()
     }
     
-    init(screenType: ScreenType, searchQuery: String? = nil) {
+    init(screenType: ScreenType) {
         self.screenType = screenType
-        self.searchQuery = searchQuery
     }
 
     func getNews() {
