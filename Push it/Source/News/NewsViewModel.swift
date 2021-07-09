@@ -18,15 +18,14 @@ enum State {
 
 class NewsViewModel {
     
-    // Network & Rx
-    private let networkLayer = PushItNetworkLayer()
-    private let disposeBag = DisposeBag()
-    
     // ScreenTypes
     private let screenType: ScreenType
     
     // Articles
     private(set) var articles: [Article] = []
+    
+    // Network
+    private let networkLayer = PushItNetworkLayer()
     
     // State
     private var stateRelay = BehaviorRelay<State>(value: .loading)
@@ -34,6 +33,9 @@ class NewsViewModel {
     var stateObservable: Observable<State> {
         return stateRelay.asObservable()
     }
+    
+    // Rx
+    private let disposeBag = DisposeBag()
     
     init(screenType: ScreenType) {
         self.screenType = screenType
