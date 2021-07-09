@@ -38,7 +38,7 @@ class NewsViewController: UIViewController {
 
         bindObservables()
         configureCollectionView()
-        presenter.getNews()
+        presenter.viewDidLoad()
     }
     
     private func configureCollectionView() {

@@ -41,7 +41,12 @@ class NewsPresenter {
         self.interactor = NewsInteractor(screenType: screenType)
     }
     
-    func getNews() {
+    func viewDidLoad() {
+        
+        getNews()
+    }
+    
+    private func getNews() {
         
         interactor.getNews()
             .observe(on: MainScheduler.instance)
