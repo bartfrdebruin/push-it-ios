@@ -5,14 +5,20 @@
 //  Created by Bart on 08/07/2021.
 //
 
-import Foundation
+import UIKit
 import RxCocoa
 import RxSwift
 
-class PushItPresenter {
+class NewsPresenter {
+    
+    // View
+    weak var view: NewsViewController!
     
     // Interactor
-    private let interactor: PushItInteractor
+    private let interactor: NewsInteractor
+    
+    // Router
+    private let router = NewsRouter()
     
     // ScreenType
     private let screenType: ScreenType
@@ -32,10 +38,10 @@ class PushItPresenter {
     
     init(screenType: ScreenType) {
         self.screenType = screenType
-        self.interactor = PushItInteractor(screenType: screenType)
+        self.interactor = NewsInteractor(screenType: screenType)
     }
     
-    func getArticles() {
+    func getNews() {
         
         interactor.getNews()
             .observe(on: MainScheduler.instance)
@@ -57,5 +63,22 @@ class PushItPresenter {
                 self.stateRelay.accept(.error(error))
                 
             }.disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Factory
+extension NewsPresenter {
+
+    static func make(with screenType: ScreenType) -> NewsPresenter {
+        
+        let presenter = NewsPresenter(screenType: screenType)
+        let storyboard = UIStoryboard(name: "NewsViewController", bundle: nil)
+        let vc = storyboard.instantiateViewController(
+            identifier: "NewsViewController", creator: { coder in
+                return NewsViewController(coder: coder, presenter: presenter)
+            })
+        
+        presenter.view = vc
+        return presenter
     }
 }

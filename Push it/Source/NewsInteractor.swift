@@ -16,7 +16,7 @@ enum State {
     case error(Error)
 }
 
-class PushItInteractor {
+class NewsInteractor {
         
     // ScreenType
     private let screenType: ScreenType

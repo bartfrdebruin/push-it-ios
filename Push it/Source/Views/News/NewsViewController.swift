@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 
 class NewsViewController: UIViewController {
     
-    private let viewModel: NewsViewModel
+    // Presenter
+    private let presenter: NewsPresenter
 
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var errorLabel: UILabel!
@@ -18,8 +20,11 @@ class NewsViewController: UIViewController {
     // DataSource
     private lazy var dataSource = configureDataSource()
     
-    init?(coder: NSCoder, viewModel: NewsViewModel) {
-        self.viewModel = viewModel
+    // DisposeBag
+    private let disposeBag = DisposeBag()
+    
+    init?(coder: NSCoder, presenter: NewsPresenter) {
+        self.presenter = presenter
         super.init(coder: coder)
     }
     
@@ -32,7 +37,7 @@ class NewsViewController: UIViewController {
 
         bindObservables()
         configureCollectionView()
-        viewModel.getNews()
+        presenter.getNews()
     }
     
     private func configureCollectionView() {
@@ -61,38 +66,34 @@ class NewsViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Article>()
         snapshot.appendSections([1])
 
-        snapshot.appendItems(viewModel.articles)
+        snapshot.appendItems(presenter.articles)
         dataSource.apply(snapshot)
     }
     
-    
     func bindObservables() {
         
-        
-        
-        viewModel.refreshState = { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            switch self.viewModel.state {
-            case .initial, .loading:
-        
-                self.activityIndicator.startAnimating()
-                print("loading")
-            case .result:
+        presenter.stateObservable
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] articles in
                 
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.errorLabel.isHidden = true
-                    self.configureSnapshot()
+                guard let self = self else {
+                    return
                 }
-
-            case .error(let error):
-                print("error: ", error)
-            }
-        }
+                
+                self.configureSnapshot()
+                self.activityIndicator.stopAnimating()
+                
+            }, onError: { [weak self] error in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                self.errorLabel.text = error.localizedDescription
+                self.errorLabel.isHidden = false
+                self.activityIndicator.stopAnimating()
+                
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -100,10 +101,11 @@ extension NewsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard viewModel.articles.count > indexPath.item,
-              let article = viewModel.article(at: indexPath) else {
+        guard presenter.articles.count > indexPath.item else {
             return
         }
+        
+        let article = presenter.articles[indexPath.item]
 
         let vc = NewsDetailViewController.make(with: article)
         navigationController?.pushViewController(vc, animated: true)
@@ -132,21 +134,5 @@ extension NewsViewController {
         let section = NSCollectionLayoutSection(group: mainGroup)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
-    }
-}
-
-// MARK: - Factory
-extension NewsViewController {
-
-    static func make(with screenType: ScreenType) -> NewsViewController {
-        
-        let viewModel = NewsViewModel(screenType: screenType)
-        let storyboard = UIStoryboard(name: "NewsViewController", bundle: nil)
-        let vc = storyboard.instantiateViewController(
-            identifier: "NewsViewController", creator: { coder in
-                return NewsViewController(coder: coder, viewModel: viewModel)
-            })
-        
-        return vc
     }
 }
