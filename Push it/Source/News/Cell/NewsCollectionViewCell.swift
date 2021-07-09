@@ -18,6 +18,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
     
+    // Image Download Task
     private var task: URLSessionDataTask?
 
     override func awakeFromNib() {

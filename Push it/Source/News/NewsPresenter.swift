@@ -18,7 +18,7 @@ class NewsPresenter {
     private let interactor: NewsInteractor
     
     // Router
-    private let router = NewsRouter()
+    lazy var router = NewsRouter(rootViewController: view)
     
     // ScreenType
     private let screenType: ScreenType
@@ -63,6 +63,15 @@ class NewsPresenter {
                 self.stateRelay.accept(.error(error))
                 
             }.disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Routing
+extension NewsPresenter {
+    
+    func routeToDetail(with article: Article) {
+        
+        router.routeToDetail(with: article)
     }
 }
 

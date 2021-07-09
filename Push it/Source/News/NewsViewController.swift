@@ -10,13 +10,13 @@ import RxSwift
 
 class NewsViewController: UIViewController {
     
-    // Presenter
-    private let presenter: NewsPresenter
-
-    // UI 
+    // UI
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var errorLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
+    
+    // Presenter
+    private let presenter: NewsPresenter
     
     // DataSource
     private lazy var dataSource = configureDataSource()
@@ -30,7 +30,7 @@ class NewsViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("You must create this view controller with an article.")
+        fatalError("You must create this view controller with an presenter!")
     }
     
     override func viewDidLoad() {
@@ -98,6 +98,7 @@ class NewsViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension NewsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -107,9 +108,7 @@ extension NewsViewController: UICollectionViewDelegate {
         }
         
         let article = presenter.articles[indexPath.item]
-
-        let vc = NewsDetailViewController.make(with: article)
-        navigationController?.pushViewController(vc, animated: true)
+        presenter.routeToDetail(with: article)
     }
 }
 
