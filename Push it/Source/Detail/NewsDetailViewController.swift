@@ -11,6 +11,7 @@ import RxSwift
 
 class NewsDetailViewController: UIViewController {
 
+    // UI
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var sourceLabel: UILabel!
     @IBOutlet private weak var titleLabel: UILabel!
@@ -18,8 +19,10 @@ class NewsDetailViewController: UIViewController {
     @IBOutlet private weak var authorLabel: UILabel!
     @IBOutlet private weak var contentLabel: UILabel!
     
+    // Article
     private let article: Article
     
+    // Rx
     private let disposeBag = DisposeBag()
     
     init?(coder: NSCoder, article: Article) {

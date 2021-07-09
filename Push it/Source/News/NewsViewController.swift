@@ -10,6 +10,7 @@ import RxSwift
 
 class NewsViewController: UIViewController {
     
+    // UI 
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var errorLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
