@@ -9,11 +9,13 @@ import UIKit
 
 class NewsViewController: UIViewController {
     
-    private let presenter: NewsPresenter
-
+    // UI
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var errorLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
+    
+    // Presenter
+    private let presenter: NewsPresenter
     
     // DataSource
     private lazy var dataSource = configureDataSource()

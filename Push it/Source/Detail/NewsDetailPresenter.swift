@@ -12,6 +12,7 @@ class NewsDetailPresenter {
     // View
     weak var view: NewsDetailViewController!
     
+    // Article
     private let article: Article
     
     init(article: Article) {

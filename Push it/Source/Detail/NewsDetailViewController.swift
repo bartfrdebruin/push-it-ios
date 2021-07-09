@@ -9,6 +9,7 @@ import UIKit
 
 class NewsDetailViewController: UIViewController {
 
+    // UI
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var sourceLabel: UILabel!
     @IBOutlet private weak var titleLabel: UILabel!
@@ -16,6 +17,7 @@ class NewsDetailViewController: UIViewController {
     @IBOutlet private weak var authorLabel: UILabel!
     @IBOutlet private weak var contentLabel: UILabel!
     
+    // Presenter
     private let presenter: NewsDetailPresenter
 
     init?(coder: NSCoder, presenter: NewsDetailPresenter) {

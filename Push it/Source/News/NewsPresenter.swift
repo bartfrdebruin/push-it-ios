@@ -13,8 +13,10 @@ class NewsPresenter {
     // View
     weak var view: NewsViewController!
     
-    // Types
+    // ScreenType
     private let screenType: ScreenType
+    
+    // Articles
     private(set) var articles: [Article] = []
     
     // Network
@@ -69,7 +71,7 @@ class NewsPresenter {
     }
 }
 
-// MARK: - UICollectionView
+// MARK: - Did Select
 extension NewsPresenter {
     
     func didSelectItem(at indexPath: IndexPath) {
