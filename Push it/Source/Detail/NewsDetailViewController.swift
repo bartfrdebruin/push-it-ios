@@ -31,7 +31,7 @@ class NewsDetailViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("You must create this view controller with an article.")
+        fatalError("You must create this view controller with an viewModel!")
     }
     
     override func viewDidLoad() {
