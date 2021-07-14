@@ -46,7 +46,7 @@ class NewsViewController: UIViewController {
     
     func getNews() {
 
-        news()
+        newsForScreenType()
             .observe(on: MainScheduler.instance)
             .subscribe { [weak self] (news) in
                 
@@ -71,7 +71,7 @@ class NewsViewController: UIViewController {
             }.disposed(by: disposeBag)
     }
     
-    private func news() -> Single<News> {
+    private func newsForScreenType() -> Single<News> {
         
         switch screenType {
         case .headlines:
