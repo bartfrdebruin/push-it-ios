@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol NewsDetailViewProtocol: AnyObject {
+    
+    func configureLabels(with article: Article)
+    func configureImage(with image: UIImage)
+}
+
 class NewsDetailViewController: UIViewController {
 
     // UI
@@ -18,9 +24,9 @@ class NewsDetailViewController: UIViewController {
     @IBOutlet private weak var contentLabel: UILabel!
     
     // Presenter
-    private let presenter: NewsDetailPresenter
+    private let presenter: NewsDetailPresenterProtocol
 
-    init?(coder: NSCoder, presenter: NewsDetailPresenter) {
+    init?(coder: NSCoder, presenter: NewsDetailPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)        
     }
@@ -32,8 +38,12 @@ class NewsDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter.viewDidLoad()
+        presenter.downloadImage()
+        presenter.configureLabels()
     }
+}
+
+extension NewsDetailViewController: NewsDetailViewProtocol {
     
     func configureImage(with image: UIImage) {
         
@@ -46,7 +56,6 @@ class NewsDetailViewController: UIViewController {
     func configureLabels(with article: Article) {
 
         titleLabel.text = article.title
-        titleLabel.isHidden = false
         
         if let author = article.author {
             authorLabel.text = author
@@ -64,7 +73,23 @@ class NewsDetailViewController: UIViewController {
         }
         
         sourceLabel.text = article.source.name
-        sourceLabel.isHidden = false
+    }
+}
+
+// MARK: - Factory
+extension NewsDetailViewController {
+    
+    static func make(with article: Article) -> NewsDetailViewController {
+ 
+        let presenter = NewsDetailPresenter(article: article)
+        let storyboard = UIStoryboard(name: "NewsDetailViewController", bundle: nil)
+        let vc = storyboard.instantiateViewController(
+            identifier: "NewsDetailViewController", creator: { coder in
+                return NewsDetailViewController(coder: coder, presenter: presenter)
+            })
+        
+        presenter.view = vc
+        return vc
     }
 }
 

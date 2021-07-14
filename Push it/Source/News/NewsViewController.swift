@@ -7,6 +7,14 @@
 
 import UIKit
 
+protocol NewsViewProtocol: AnyObject {
+    
+    func stopActivityIndicator()
+    func showError(with error: Error)
+    func configureSnapshot()
+    func pushDetailViewController(with article: Article)
+}
+
 class NewsViewController: UIViewController {
     
     // UI
@@ -15,12 +23,12 @@ class NewsViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
     
     // Presenter
-    private let presenter: NewsPresenter
+    private let presenter: NewsPresenterProtocol
     
     // DataSource
     private lazy var dataSource = configureDataSource()
     
-    init?(coder: NSCoder, presenter: NewsPresenter) {
+    init?(coder: NSCoder, presenter: NewsPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
     }
@@ -55,6 +63,10 @@ class NewsViewController: UIViewController {
             return cell
         }
     }
+}
+
+// MARK: - NewsViewProtocol
+extension NewsViewController: NewsViewProtocol {
     
     func configureSnapshot() {
         
@@ -63,6 +75,24 @@ class NewsViewController: UIViewController {
 
         snapshot.appendItems(presenter.articles)
         dataSource.apply(snapshot)
+    }
+    
+    func showError(with error: Error) {
+        
+        activityIndicator.stopAnimating()
+        errorLabel.text = error.localizedDescription
+        errorLabel.isHidden = false
+    }
+ 
+    func stopActivityIndicator() {
+       
+        activityIndicator.stopAnimating()
+    }
+    
+    func pushDetailViewController(with article: Article) {
+        
+        let viewController = NewsDetailViewController.make(with: article)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -100,22 +130,19 @@ extension NewsViewController {
     }
 }
 
-// MARK: - Error Handling
+// MARK: - Factory
 extension NewsViewController {
-    
-    func showError(with error: Error) {
-        
-        activityIndicator.stopAnimating()
-        errorLabel.text = error.localizedDescription
-        errorLabel.isHidden = false
-    }
-}
 
-// MARK: - Loading
-extension NewsViewController {
-    
-    func stopActivitiyIndicator() {
+    static func make(with screenType: ScreenType) -> NewsViewController {
         
-        activityIndicator.stopAnimating()
+        let presenter = NewsPresenter(screenType: screenType)
+        let storyboard = UIStoryboard(name: "NewsViewController", bundle: nil)
+        let vc = storyboard.instantiateViewController(
+            identifier: "NewsViewController", creator: { coder in
+                return NewsViewController(coder: coder, presenter: presenter)
+            })
+        
+        presenter.view = vc
+        return vc
     }
 }

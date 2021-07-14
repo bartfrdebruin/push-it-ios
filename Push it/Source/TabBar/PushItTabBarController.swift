@@ -45,10 +45,9 @@ class PushItTabBarController: UITabBarController {
     func configure() {
 
         var viewControllers = ScreenType.allCases.compactMap { (type) -> UIViewController? in
-            let presenter = NewsPresenter.make(with: type)
-            let viewController = presenter.view
-            viewController?.title = type.title()
-            let navigationController = UINavigationController(rootViewController: viewController!)
+            let viewController = NewsViewController.make(with: type)
+            viewController.title = type.title()
+            let navigationController = UINavigationController(rootViewController: viewController)
             return navigationController
         }
         
@@ -65,10 +64,9 @@ class PushItTabBarController: UITabBarController {
     
     func presentCustomNews(with query: String) {
         
-        let presenter = NewsPresenter.make(with: .custom(query))
-        let viewController = presenter.view
-        viewController?.title = query
-        let navigationController = UINavigationController(rootViewController: viewController!)
+        let viewController = NewsViewController.make(with: .custom(query))
+        viewController.title = query
+        let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .automatic
         present(navigationController, animated: true, completion: nil)
     }

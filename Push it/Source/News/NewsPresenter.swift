@@ -8,14 +8,23 @@
 import UIKit
 import RxSwift
 
-class NewsPresenter {
+protocol NewsPresenterProtocol {
     
-    // View
-    weak var view: NewsViewController!
+    var view: NewsViewProtocol! { get }
+    var screenType: ScreenType { get set }
+    var articles: [Article] { get }
+    func getNews()
+    func didSelectItem(at indexPath: IndexPath)
+}
+
+class NewsPresenter: NewsPresenterProtocol {
     
     // ScreenType
-    private let screenType: ScreenType
+    var screenType: ScreenType
     
+    // View
+    weak var view: NewsViewProtocol!
+
     // Articles
     private(set) var articles: [Article] = []
     
@@ -40,7 +49,7 @@ class NewsPresenter {
                 }
                 
                 self.articles = news.articles
-                self.view.stopActivitiyIndicator()
+                self.view.stopActivityIndicator()
                 self.view.configureSnapshot()
                 
             } onFailure: { [weak self] (error) in
@@ -79,32 +88,8 @@ extension NewsPresenter {
         guard articles.count > indexPath.item else {
             return
         }
-        
-        let article = articles[indexPath.item]
-        let newsDetailPresenter = NewsDetailPresenter.make(with: article)
-        
-        guard let viewController = newsDetailPresenter.view else {
-            return
-        }
-
-        view.navigationController?.pushViewController(viewController, animated: true)
-    }
-}
-
-// MARK: - Factory
-extension NewsPresenter {
-
-    static func make(with screenType: ScreenType) -> NewsPresenter {
-        
-        let presenter = NewsPresenter(screenType: screenType)
-        let storyboard = UIStoryboard(name: "NewsViewController", bundle: nil)
-        let vc = storyboard.instantiateViewController(
-            identifier: "NewsViewController", creator: { coder in
-                return NewsViewController(coder: coder, presenter: presenter)
-            })
-        
-        presenter.view = vc
-        return presenter
+   
+        view.pushDetailViewController(with: articles[indexPath.item])
     }
 }
 
