@@ -20,7 +20,7 @@ class NewsDetailViewController: UIViewController {
     @IBOutlet private weak var contentLabel: UILabel!
     
     // ViewModel
-    private let viewModel: NewsDetailViewModel
+    private let viewModel: NewsDetailViewModelProtocol
     
     // Rx
     private let disposeBag = DisposeBag()
@@ -38,12 +38,13 @@ class NewsDetailViewController: UIViewController {
         super.viewDidLoad()
 
         bindObservables()
-        viewModel.getArticle()
+        viewModel.downloadImage()
+        configure()
     }
     
     func bindObservables() {
         
-        viewModel.stateObservable
+        viewModel.imageStateObservable
             .observe(on: MainScheduler.instance)
             .subscribe { [weak self] _ in
                 
@@ -51,37 +52,42 @@ class NewsDetailViewController: UIViewController {
                     return
                 }
                 
-                self.configure()
+                if let image = self.viewModel.image {
+                    self.imageView.image = image
+                }
+                
+            } onError: { [weak self] _ in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                self.imageView.isHidden = true
                 
             }.disposed(by: disposeBag)
     }
-    
+
     private func configure() {
         
-        if let image = viewModel.image() {
-            imageView.image = image
-            imageView.isHidden = false
-        }
-        
-        titleLabel.text = viewModel.title()
+        titleLabel.text = viewModel.title
         titleLabel.isHidden = false
         
-        if let author = viewModel.author() {
+        if let author = viewModel.author {
             authorLabel.text = author
             authorLabel.isHidden = false
         }
         
-        if let content = viewModel.content() {
+        if let content = viewModel.content {
             contentLabel.text = content
             contentLabel.isHidden = false
         }
         
-        if let description = viewModel.description() {
+        if let description = viewModel.description {
             descriptionLabel.text = description
             descriptionLabel.isHidden = false
         }
         
-        sourceLabel.text = viewModel.source()
+        sourceLabel.text = viewModel.source
         sourceLabel.isHidden = false
     }
 }

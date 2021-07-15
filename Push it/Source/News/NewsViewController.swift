@@ -16,7 +16,7 @@ class NewsViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
     
     // ViewModel
-    private let viewModel: NewsViewModel
+    private let viewModel: NewsViewModelProtocol
 
     // Rx
     private let disposeBag = DisposeBag()
@@ -103,11 +103,11 @@ extension NewsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard viewModel.numberOfArticles() > indexPath.item,
-              let article = viewModel.article(at: indexPath) else {
+        guard viewModel.articles.count > indexPath.item else {
             return
         }
-
+        
+        let article = viewModel.articles[indexPath.item]
         let vc = NewsDetailViewController.make(with: article)
         navigationController?.pushViewController(vc, animated: true)
     }

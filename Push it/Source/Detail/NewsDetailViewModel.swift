@@ -9,16 +9,57 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class NewsDetailViewModel {
+enum ImageState {
+    case loading
+    case result
+    case error(Error)
+}
+
+protocol NewsDetailViewModelProtocol {
+    
+    var imageStateObservable: Observable<ImageState> { get }
+        
+    var author: String? { get }
+    var content: String? { get }
+    var description: String? { get }
+    var title: String { get }
+    var source: String { get }
+    var image: UIImage? { get set }
+    
+    func downloadImage()
+}
+
+class NewsDetailViewModel: NewsDetailViewModelProtocol {
     
     // Article
     private var article: Article
-    private var articleImage: UIImage?
     
+    var image: UIImage?
+
+    var author: String? {
+        return article.author
+    }
+    
+    var content: String? {
+        return article.content
+    }
+    
+    var description: String? {
+        return article.description
+    }
+
+    var title: String {
+        return article.title
+    }
+
+    var source: String {
+        return article.source.name
+    }
+
     // State
-    private var stateRelay = BehaviorRelay<State>(value: .loading)
+    private var stateRelay = BehaviorRelay<ImageState>(value: .loading)
     
-    var stateObservable: Observable<State> {
+    var imageStateObservable: Observable<ImageState> {
         return stateRelay.asObservable()
     }
 
@@ -26,39 +67,7 @@ class NewsDetailViewModel {
         self.article = article
     }
     
-    func getArticle() {
-        downloadImage()
-    }
-    
-    func image() -> UIImage? {
-        return articleImage
-    }
-    
-    func author() -> String? {
-        return article.author
-    }
-    
-    func content() -> String? {
-        return article.content
-    }
-
-    func description() -> String? {
-        return article.description
-    }
-    
-    func title() -> String {
-        return article.title
-    }
-    
-    func source() -> String {
-        return article.source.name
-    }
-}
-
-// MARK: - ImageDownLoader
-extension NewsDetailViewModel {
-    
-    private func downloadImage() {
+    func downloadImage() {
         
         guard let imageString = article.urlToImage,
               let url = URL(string: imageString) else {
@@ -69,7 +78,7 @@ extension NewsDetailViewModel {
             
             switch result {
             case .success(let image):
-                self?.articleImage = image
+                self?.image = image
                 self?.stateRelay.accept(.result)
             case .failure(let error):
                 self?.stateRelay.accept(.error(error))

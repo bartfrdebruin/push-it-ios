@@ -10,13 +10,20 @@ import RxCocoa
 import RxSwift
 
 enum State {
-    case initial
     case loading
     case result
     case error(Error)
 }
 
-class NewsViewModel {
+protocol NewsViewModelProtocol {
+    
+    var articles: [Article] { get }
+    var stateObservable: Observable<State> { get }
+    
+    func getNews() 
+}
+
+class NewsViewModel: NewsViewModelProtocol {
     
     // ScreenTypes
     private let screenType: ScreenType
@@ -43,7 +50,7 @@ class NewsViewModel {
 
     func getNews() {
         
-        news()
+        newsForScreenType()
             .observe(on: MainScheduler.instance)
             .subscribe { [weak self] (news) in
                 
@@ -65,7 +72,7 @@ class NewsViewModel {
             }.disposed(by: disposeBag)
     }
     
-    private func news() -> Single<News> {
+    private func newsForScreenType() -> Single<News> {
         
         switch screenType {
         case .headlines:
@@ -79,19 +86,5 @@ class NewsViewModel {
         case .custom(let query):
             return networkLayer.custom(query: query)
         }
-    }
-    
-    func numberOfArticles() -> Int {
-        
-        return articles.count
-    }
-    
-    func article(at indexPath: IndexPath) -> Article? {
-        
-        guard indexPath.item < articles.count else {
-            return nil
-        }
-        
-        return articles[indexPath.item]
     }
 }
