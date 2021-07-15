@@ -16,10 +16,16 @@ enum State {
     case error(Error)
 }
 
-class NewsInteractor {
+protocol NewsInteractorProtocol {
+    
+    var screenType: ScreenType { get set }
+    func getNews() -> Single<News>
+}
+
+class NewsInteractor: NewsInteractorProtocol {
         
     // ScreenType
-    private let screenType: ScreenType
+    var screenType: ScreenType
 
     // Network
     private let networkLayer = PushItNetworkLayer()
@@ -30,10 +36,10 @@ class NewsInteractor {
     
     func getNews() -> Single<News> {
         
-        return news()
+        return newsForScreenType()
     }
     
-    private func news() -> Single<News> {
+    private func newsForScreenType() -> Single<News> {
         
         switch screenType {
         case .headlines:

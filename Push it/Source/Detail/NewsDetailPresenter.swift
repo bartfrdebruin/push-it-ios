@@ -7,11 +7,19 @@
 
 import UIKit
 
-class NewsDetailPresenter {
+protocol NewsDetailPresenterProtocol {
+    
+    var view: NewsDetailViewProtocol? { get set }
+
+    func downloadImage()
+    func configureLabels()
+}
+
+class NewsDetailPresenter: NewsDetailPresenterProtocol {
     
     // View
-    weak var view: NewsDetailViewController!
-    
+    weak var view: NewsDetailViewProtocol?
+
     // Article
     private let article: Article
     
@@ -19,15 +27,9 @@ class NewsDetailPresenter {
         self.article = article
     }
     
-    func viewDidLoad() {
-        
-        downloadImage()
-        view.configureLabels(with: article)
+    func configureLabels() {
+        view?.configureLabels(with: article)
     }
-}
-
-// MARK: - ImageDownLoader
-extension NewsDetailPresenter {
     
     func downloadImage() {
         
@@ -40,27 +42,10 @@ extension NewsDetailPresenter {
             
             switch result {
             case .success(let image):
-                self?.view.configureImage(with: image)
+                self?.view?.configureImage(with: image)
             case .failure(let error):
                 print("Error", error)
             }
         }
-    }
-}
-
-// MARK: - Factory
-extension NewsDetailPresenter {
-    
-    static func make(with article: Article) -> NewsDetailPresenter {
- 
-        let presenter = NewsDetailPresenter(article: article)
-        let storyboard = UIStoryboard(name: "NewsDetailViewController", bundle: nil)
-        let vc = storyboard.instantiateViewController(
-            identifier: "NewsDetailViewController", creator: { coder in
-                return NewsDetailViewController(coder: coder, presenter: presenter)
-            })
-        
-        presenter.view = vc
-        return presenter
     }
 }

@@ -8,6 +8,13 @@
 import UIKit
 import RxSwift
 
+protocol NewsViewProtocol: AnyObject {
+    
+    func configureSnapShot()
+    func stopLoadingState()
+    func showErrorState(with error: Error)
+}
+
 class NewsViewController: UIViewController {
     
     // UI
@@ -16,7 +23,7 @@ class NewsViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
     
     // Presenter
-    private let presenter: NewsPresenter
+    private let presenter: NewsPresenterProtocol
     
     // DataSource
     private lazy var dataSource = configureDataSource()
@@ -24,7 +31,7 @@ class NewsViewController: UIViewController {
     // DisposeBag
     private let disposeBag = DisposeBag()
     
-    init?(coder: NSCoder, presenter: NewsPresenter) {
+    init?(coder: NSCoder, presenter: NewsPresenterProtocol) {
         self.presenter = presenter
         super.init(coder: coder)
     }
@@ -36,9 +43,8 @@ class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bindObservables()
         configureCollectionView()
-        presenter.viewDidLoad()
+        presenter.getNews()
     }
     
     private func configureCollectionView() {
@@ -61,40 +67,28 @@ class NewsViewController: UIViewController {
             return cell
         }
     }
+}
+
+// MARK: - NewsViewProtocol
+extension NewsViewController: NewsViewProtocol {
+ 
+    func stopLoadingState() {
+        activityIndicator.stopAnimating()
+    }
     
-    func configureSnapshot() {
+    func showErrorState(with error: Error) {
+        errorLabel.text = error.localizedDescription
+        errorLabel.isHidden = false
+        activityIndicator.stopAnimating()
+    }
+    
+    func configureSnapShot() {
         
         var snapshot = NSDiffableDataSourceSnapshot<Int, Article>()
         snapshot.appendSections([1])
-
+        
         snapshot.appendItems(presenter.articles)
         dataSource.apply(snapshot)
-    }
-    
-    func bindObservables() {
-        
-        presenter.stateObservable
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] articles in
-                
-                guard let self = self else {
-                    return
-                }
-                
-                self.configureSnapshot()
-                self.activityIndicator.stopAnimating()
-                
-            }, onError: { [weak self] error in
-                
-                guard let self = self else {
-                    return
-                }
-                
-                self.errorLabel.text = error.localizedDescription
-                self.errorLabel.isHidden = false
-                self.activityIndicator.stopAnimating()
-                
-            }).disposed(by: disposeBag)
     }
 }
 
@@ -134,5 +128,19 @@ extension NewsViewController {
         let section = NSCollectionLayoutSection(group: mainGroup)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
+    }
+}
+
+// MARK: - Factory
+extension NewsViewController {
+    
+    static func make(with presenter: NewsPresenterProtocol) -> NewsViewController {
+        
+        let storyboard = UIStoryboard(name: "NewsViewController", bundle: nil)
+        let vc = storyboard.instantiateViewController(
+            identifier: "NewsViewController", creator: { coder in
+                return NewsViewController(coder: coder, presenter: presenter)
+            })
+        return vc
     }
 }

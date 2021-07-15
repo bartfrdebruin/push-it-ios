@@ -7,18 +7,33 @@
 
 import UIKit
 
-class NewsRouter {
+protocol NewsRouterProtocol {
     
-    // Root
-    let rootViewController: UIViewController
+    func createNewsModule(with screenType: ScreenType) -> UIViewController
+    func routeToDetail(with article: Article)
+}
+
+class NewsRouter: NewsRouterProtocol {
     
-    init(rootViewController: UIViewController) {
-        self.rootViewController = rootViewController
+    private var rootViewController: UIViewController?
+
+    func createNewsModule(with screenType: ScreenType) -> UIViewController {
+        
+        let presenter = NewsPresenter(screenType: screenType)
+        let viewController = NewsViewController.make(with: presenter)
+        presenter.interactor = NewsInteractor(screenType: screenType)
+        presenter.view = viewController
+        presenter.router = self
+        
+        self.rootViewController = viewController
+        return viewController
     }
     
     func routeToDetail(with article: Article) {
         
-        let presenter = NewsDetailPresenter.make(with: article)
-        rootViewController.navigationController?.pushViewController(presenter.view, animated: true)
+        let presenter = NewsDetailPresenter(article: article)
+        let viewController = NewsDetailViewController.make(with: presenter)
+        presenter.view = viewController
+        rootViewController?.navigationController?.pushViewController(viewController, animated: true)
     }
 }

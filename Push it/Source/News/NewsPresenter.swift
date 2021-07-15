@@ -9,46 +9,44 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class NewsPresenter {
+protocol NewsPresenterProtocol {
+    
+    var view: NewsViewProtocol? { get set }
+    var router: NewsRouterProtocol? { get set }
+    var interactor: NewsInteractorProtocol? { get set }
+    var articles: [Article] { get }
+
+    func getNews()
+    func routeToDetail(with article: Article)
+}
+
+class NewsPresenter: NewsPresenterProtocol {
     
     // View
-    weak var view: NewsViewController!
-    
-    // Interactor
-    private let interactor: NewsInteractor
+    weak var view: NewsViewProtocol?
     
     // Router
-    lazy var router = NewsRouter(rootViewController: view)
+    var router: NewsRouterProtocol?
+    
+    // Interactor
+    var interactor: NewsInteractorProtocol?
     
     // ScreenType
     private let screenType: ScreenType
     
     // Articles
-    private(set) var articles: [Article] = []
-    
-    // State
-    private var stateRelay = BehaviorRelay<State>(value: .loading)
-    
-    var stateObservable: Observable<State> {
-        return stateRelay.asObservable()
-    }
-    
+    var articles: [Article] = []
+
     // Rx
     private let disposeBag = DisposeBag()
     
     init(screenType: ScreenType) {
         self.screenType = screenType
-        self.interactor = NewsInteractor(screenType: screenType)
     }
-    
-    func viewDidLoad() {
+
+    func getNews() {
         
-        getNews()
-    }
-    
-    private func getNews() {
-        
-        interactor.getNews()
+        interactor?.getNews()
             .observe(on: MainScheduler.instance)
             .subscribe { [weak self] (news) in
                 
@@ -57,7 +55,8 @@ class NewsPresenter {
                 }
                 
                 self.articles = news.articles
-                self.stateRelay.accept(.result)
+                self.view?.stopLoadingState()
+                self.view?.configureSnapShot()
                 
             } onFailure: { [weak self] (error) in
                 
@@ -65,7 +64,7 @@ class NewsPresenter {
                     return
                 }
                 
-                self.stateRelay.accept(.error(error))
+                self.view?.showErrorState(with: error)
                 
             }.disposed(by: disposeBag)
     }
@@ -76,23 +75,6 @@ extension NewsPresenter {
     
     func routeToDetail(with article: Article) {
         
-        router.routeToDetail(with: article)
-    }
-}
-
-// MARK: - Factory
-extension NewsPresenter {
-
-    static func make(with screenType: ScreenType) -> NewsPresenter {
-        
-        let presenter = NewsPresenter(screenType: screenType)
-        let storyboard = UIStoryboard(name: "NewsViewController", bundle: nil)
-        let vc = storyboard.instantiateViewController(
-            identifier: "NewsViewController", creator: { coder in
-                return NewsViewController(coder: coder, presenter: presenter)
-            })
-        
-        presenter.view = vc
-        return presenter
+        router?.routeToDetail(with: article)
     }
 }
