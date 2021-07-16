@@ -49,10 +49,13 @@ class AppController: NSObject {
 extension AppController {
     
     private func registerNotificationCategories() {
-        
+    
+        let newsActionIcon = UNNotificationActionIcon(systemImageName: "square.text.square.fill")
+    
         let newsAction = UNNotificationAction(identifier: UNNotificationDefaultActionIdentifier,
-                                                  title: "Show me the news!",
-                                                  options: UNNotificationActionOptions.foreground)
+                                              title: "Show me the news!",
+                                              options: UNNotificationActionOptions.foreground,
+                                              icon: newsActionIcon)
         
         let newsCategory = UNNotificationCategory(identifier: PushCategories.localBackgroundForground.rawValue,
                                                    actions: [newsAction],
@@ -60,9 +63,12 @@ extension AppController {
                                                    hiddenPreviewsBodyPlaceholder: "",
                                                    options: .customDismissAction)
         
+        let bearsActionIcon = UNNotificationActionIcon(systemImageName: "pawprint.fill")
+        
         let bearsNewsAction = UNNotificationAction(identifier: UNNotificationDefaultActionIdentifier,
-                                                  title: "Show me the bears!",
-                                                  options: UNNotificationActionOptions.foreground)
+                                                   title: "Show me the bears!",
+                                                   options: UNNotificationActionOptions.foreground,
+                                                   icon: bearsActionIcon)
         
         let bearsCategory = UNNotificationCategory(identifier: PushCategories.backgroundForground.rawValue,
                                                    actions: [bearsNewsAction],
@@ -70,9 +76,12 @@ extension AppController {
                                                    hiddenPreviewsBodyPlaceholder: "",
                                                    options: .customDismissAction)
         
+        let catsNewsActionIcon = UNNotificationActionIcon(systemImageName: "pawprint")
+        
         let catsNewsAction = UNNotificationAction(identifier: UNNotificationDefaultActionIdentifier,
                                                   title: "Show me the cats!",
-                                                  options: UNNotificationActionOptions.foreground)
+                                                  options: UNNotificationActionOptions.foreground,
+                                                  icon: catsNewsActionIcon)
         
         let catsCategory = UNNotificationCategory(identifier: PushCategories.background.rawValue,
                                                    actions: [catsNewsAction],

@@ -30,6 +30,9 @@
 		CC25FEFF267148620069A2E4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC25FEF2267148620069A2E4 /* NetworkError.swift */; };
 		CC459768261CE139001DD009 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC459767261CE139001DD009 /* NotificationService.swift */; };
 		CC45976C261CE139001DD009 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CC459765261CE139001DD009 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CC5875AA26A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5875A826A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.swift */; };
+		CC5875AB26A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC5875A926A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.xib */; };
+		CC5875AC26A18F230076ED0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC74B05E2618672E00C7AF56 /* Assets.xcassets */; };
 		CC5E9599263ECDBE00E9D3EF /* NewsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC5E9598263ECDBE00E9D3EF /* NewsViewController.storyboard */; };
 		CC5E95C3263ED0C900E9D3EF /* NewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC5E95C2263ED0C900E9D3EF /* NewsCollectionViewCell.xib */; };
 		CC5E95C9263ED37E00E9D3EF /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5E95C8263ED37E00E9D3EF /* NewsDetailViewController.swift */; };
@@ -118,6 +121,8 @@
 		CC459765261CE139001DD009 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC459767261CE139001DD009 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		CC459769261CE139001DD009 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC5875A826A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCelliOS15CollectionViewCell.swift; sourceTree = "<group>"; };
+		CC5875A926A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCollectionViewCelliOS15CollectionViewCell.xib; sourceTree = "<group>"; };
 		CC5E9598263ECDBE00E9D3EF /* NewsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewsViewController.storyboard; sourceTree = "<group>"; };
 		CC5E95C2263ED0C900E9D3EF /* NewsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsCollectionViewCell.xib; sourceTree = "<group>"; };
 		CC5E95C8263ED37E00E9D3EF /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
@@ -379,6 +384,8 @@
 			children = (
 				CCFA0E122621B86A0047D058 /* NewsCollectionViewCell.swift */,
 				CC5E95C2263ED0C900E9D3EF /* NewsCollectionViewCell.xib */,
+				CC5875A826A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.swift */,
+				CC5875A926A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -519,6 +526,7 @@
 			files = (
 				CC5E9599263ECDBE00E9D3EF /* NewsViewController.storyboard in Resources */,
 				CC5E95CF263ED39100E9D3EF /* NewsDetailViewController.storyboard in Resources */,
+				CC5875AB26A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.xib in Resources */,
 				CCB0B96026762BE600FB8923 /* GoogleService-Info.plist in Resources */,
 				CC74B06A2618672E00C7AF56 /* LaunchScreen.storyboard in Resources */,
 				CC74B0692618672E00C7AF56 /* Assets.xcassets in Resources */,
@@ -547,6 +555,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC5875AC26A18F230076ED0D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +584,7 @@
 				CC5E95C9263ED37E00E9D3EF /* NewsDetailViewController.swift in Sources */,
 				CC25FEF8267148620069A2E4 /* NetworkEnvironment.swift in Sources */,
 				CC74B0882618693200C7AF56 /* Configuration.swift in Sources */,
+				CC5875AA26A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.swift in Sources */,
 				CC74B0662618672E00C7AF56 /* AppDelegate.swift in Sources */,
 				CCFA0E0B2621B8300047D058 /* NewsViewController.swift in Sources */,
 				CC25FEF3267148620069A2E4 /* PushItNetworkLayer.swift in Sources */,
@@ -766,10 +776,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Push it/Application/Push it.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 369R8Q7M52;
 				INFOPLIST_FILE = "Push it/Application/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -787,10 +799,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Push it/Application/Push it.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 369R8Q7M52;
 				INFOPLIST_FILE = "Push it/Application/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
