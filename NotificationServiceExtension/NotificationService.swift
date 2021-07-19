@@ -20,6 +20,7 @@ class NotificationService: UNNotificationServiceExtension {
         if let bestAttemptContent = bestAttemptContent {
             bestAttemptContent.title = "\(bestAttemptContent.title)"
             bestAttemptContent.subtitle = "\(bestAttemptContent.subtitle)"
+            bestAttemptContent.relevanceScore = 1.0
             
             guard let imageURLString =
                     bestAttemptContent.userInfo["image"] as? String else {

@@ -28,10 +28,7 @@
 		CC25FEFD267148620069A2E4 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC25FEF0267148620069A2E4 /* NetworkTask.swift */; };
 		CC25FEFE267148620069A2E4 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC25FEF1267148620069A2E4 /* NetworkProvider.swift */; };
 		CC25FEFF267148620069A2E4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC25FEF2267148620069A2E4 /* NetworkError.swift */; };
-		CC459768261CE139001DD009 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC459767261CE139001DD009 /* NotificationService.swift */; };
 		CC45976C261CE139001DD009 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CC459765261CE139001DD009 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		CC5875AA26A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5875A826A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.swift */; };
-		CC5875AB26A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC5875A926A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.xib */; };
 		CC5875AC26A18F230076ED0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC74B05E2618672E00C7AF56 /* Assets.xcassets */; };
 		CC5E9599263ECDBE00E9D3EF /* NewsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC5E9598263ECDBE00E9D3EF /* NewsViewController.storyboard */; };
 		CC5E95C3263ED0C900E9D3EF /* NewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC5E95C2263ED0C900E9D3EF /* NewsCollectionViewCell.xib */; };
@@ -43,6 +40,7 @@
 		CC74B06A2618672E00C7AF56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC74B05F2618672E00C7AF56 /* LaunchScreen.storyboard */; };
 		CC74B0882618693200C7AF56 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74B0872618693200C7AF56 /* Configuration.swift */; };
 		CC8A9645265D7AC9003DAF6D /* PushItTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8A9644265D7AC9003DAF6D /* PushItTabBarController.swift */; };
+		CCA5EA7226A5C57E00C44CED /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA5EA7126A5C57E00C44CED /* NotificationService.swift */; };
 		CCB0B96026762BE600FB8923 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCB0B95F26762BE600FB8923 /* GoogleService-Info.plist */; };
 		CCC0034A26679BB2003983C6 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0034926679BB2003983C6 /* DateFormatter.swift */; };
 		CCC0035026679E29003983C6 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0034F26679E29003983C6 /* Date.swift */; };
@@ -119,10 +117,7 @@
 		CC25FEF1267148620069A2E4 /* NetworkProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
 		CC25FEF2267148620069A2E4 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		CC459765261CE139001DD009 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC459767261CE139001DD009 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		CC459769261CE139001DD009 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC5875A826A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCelliOS15CollectionViewCell.swift; sourceTree = "<group>"; };
-		CC5875A926A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCollectionViewCelliOS15CollectionViewCell.xib; sourceTree = "<group>"; };
 		CC5E9598263ECDBE00E9D3EF /* NewsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewsViewController.storyboard; sourceTree = "<group>"; };
 		CC5E95C2263ED0C900E9D3EF /* NewsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsCollectionViewCell.xib; sourceTree = "<group>"; };
 		CC5E95C8263ED37E00E9D3EF /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +130,7 @@
 		CC74B0872618693200C7AF56 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		CC8A9637265D7A7B003DAF6D /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		CC8A9644265D7AC9003DAF6D /* PushItTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushItTabBarController.swift; sourceTree = "<group>"; };
+		CCA5EA7126A5C57E00C44CED /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		CCB0B95F26762BE600FB8923 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CCC0034926679BB2003983C6 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		CCC0034F26679E29003983C6 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -285,7 +281,7 @@
 		CC459766261CE139001DD009 /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
-				CC459767261CE139001DD009 /* NotificationService.swift */,
+				CCA5EA7126A5C57E00C44CED /* NotificationService.swift */,
 				CC459769261CE139001DD009 /* Info.plist */,
 			);
 			path = NotificationServiceExtension;
@@ -384,8 +380,6 @@
 			children = (
 				CCFA0E122621B86A0047D058 /* NewsCollectionViewCell.swift */,
 				CC5E95C2263ED0C900E9D3EF /* NewsCollectionViewCell.xib */,
-				CC5875A826A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.swift */,
-				CC5875A926A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -526,7 +520,6 @@
 			files = (
 				CC5E9599263ECDBE00E9D3EF /* NewsViewController.storyboard in Resources */,
 				CC5E95CF263ED39100E9D3EF /* NewsDetailViewController.storyboard in Resources */,
-				CC5875AB26A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.xib in Resources */,
 				CCB0B96026762BE600FB8923 /* GoogleService-Info.plist in Resources */,
 				CC74B06A2618672E00C7AF56 /* LaunchScreen.storyboard in Resources */,
 				CC74B0692618672E00C7AF56 /* Assets.xcassets in Resources */,
@@ -584,7 +577,6 @@
 				CC5E95C9263ED37E00E9D3EF /* NewsDetailViewController.swift in Sources */,
 				CC25FEF8267148620069A2E4 /* NetworkEnvironment.swift in Sources */,
 				CC74B0882618693200C7AF56 /* Configuration.swift in Sources */,
-				CC5875AA26A1877B0076ED0D /* NewsCollectionViewCelliOS15CollectionViewCell.swift in Sources */,
 				CC74B0662618672E00C7AF56 /* AppDelegate.swift in Sources */,
 				CCFA0E0B2621B8300047D058 /* NewsViewController.swift in Sources */,
 				CC25FEF3267148620069A2E4 /* PushItNetworkLayer.swift in Sources */,
@@ -617,8 +609,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCA5EA7226A5C57E00C44CED /* NotificationService.swift in Sources */,
 				CCD690242620825E00BBE472 /* ImageDownloader.swift in Sources */,
-				CC459768261CE139001DD009 /* NotificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,7 +898,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 369R8Q7M52;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -926,7 +918,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 369R8Q7M52;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

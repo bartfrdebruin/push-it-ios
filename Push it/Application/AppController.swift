@@ -97,7 +97,7 @@ extension AppController {
         UNUserNotificationCenter
             .current()
             .requestAuthorization(
-                options: [.alert, .sound, .badge, .announcement]) { [weak self] granted, _ in
+                options: [.alert, .sound, .badge]) { [weak self] granted, _ in
                 
                 print("Permission granted: \(granted)")
                 
@@ -149,6 +149,8 @@ extension AppController {
     }
 }
 
+//extension AppController: 
+
 // MARK: - UNUserNotificationCenterDelegate
 extension AppController: UNUserNotificationCenterDelegate {
     
@@ -156,6 +158,8 @@ extension AppController: UNUserNotificationCenterDelegate {
         
         if notification.request.content.categoryIdentifier == PushCategories.background.rawValue {
             
+//            notification.request.content.relevanceScore = 0.5
+                        
             completionHandler([.sound, .badge])
         }
         
