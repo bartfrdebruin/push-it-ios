@@ -25,7 +25,7 @@ class NewsDetailViewController: UIViewController {
     // Rx
     private let disposeBag = DisposeBag()
     
-    init?(coder: NSCoder, viewModel: NewsDetailViewModel) {
+    init?(coder: NSCoder, viewModel: NewsDetailViewModelProtocol) {
         self.viewModel = viewModel
         super.init(coder: coder)        
     }

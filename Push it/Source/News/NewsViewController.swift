@@ -75,7 +75,7 @@ class NewsViewController: UIViewController {
         
         viewModel.stateObservable
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] articles in
+            .subscribe(onNext: { [weak self] _ in
                 
                 guard let self = self else {
                     return

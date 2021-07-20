@@ -24,7 +24,7 @@ protocol NewsDetailViewModelProtocol {
     var description: String? { get }
     var title: String { get }
     var source: String { get }
-    var image: UIImage? { get set }
+    var image: UIImage? { get }
     
     func downloadImage()
 }
@@ -32,7 +32,7 @@ protocol NewsDetailViewModelProtocol {
 class NewsDetailViewModel: NewsDetailViewModelProtocol {
     
     // Article
-    private var article: Article
+    private let article: Article
     
     var image: UIImage?
 
