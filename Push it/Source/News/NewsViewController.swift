@@ -11,7 +11,7 @@ protocol NewsViewProtocol: AnyObject {
     
     func stopActivityIndicator()
     func showError(with error: Error)
-    func configureSnapshot()
+    func configureSnapshot(with articles: [Article])
     func pushDetailViewController(with article: Article)
 }
 
@@ -68,7 +68,7 @@ class NewsViewController: UIViewController {
 // MARK: - NewsViewProtocol
 extension NewsViewController: NewsViewProtocol {
     
-    func configureSnapshot() {
+    func configureSnapshot(with articles: [Article]) {
         
         var snapshot = NSDiffableDataSourceSnapshot<Int, Article>()
         snapshot.appendSections([1])

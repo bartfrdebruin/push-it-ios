@@ -9,28 +9,21 @@ import UIKit
 
 protocol NewsDetailPresenterProtocol {
     
-    var view: NewsDetailViewProtocol! { get }
-    var article: Article { get set }
+    var view: NewsDetailViewProtocol? { get }
     func downloadImage()
     func configureLabels()
 }
 
 class NewsDetailPresenter: NewsDetailPresenterProtocol {
     
-    weak var view: NewsDetailViewProtocol!
+    weak var view: NewsDetailViewProtocol?
     
-    var article: Article
+    private let article: Article
 
     init(article: Article) {
         self.article = article
     }
-    
-    func viewDidLoad() {
-        
-        downloadImage()
-        view.configureLabels(with: article)
-    }
-    
+
     func downloadImage() {
         
         guard let imageString = article.urlToImage,
@@ -42,7 +35,7 @@ class NewsDetailPresenter: NewsDetailPresenterProtocol {
             
             switch result {
             case .success(let image):
-                self?.view.configureImage(with: image)
+                self?.view?.configureImage(with: image)
             case .failure(let error):
                 print("Error", error)
             }
@@ -51,6 +44,6 @@ class NewsDetailPresenter: NewsDetailPresenterProtocol {
 
     func configureLabels() {
         
-        view.configureLabels(with: article)
+        view?.configureLabels(with: article)
     }
 }
