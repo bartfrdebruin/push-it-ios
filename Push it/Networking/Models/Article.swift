@@ -2,14 +2,14 @@
 //  Article.swift
 //  Push it
 //
-//  Created by Bart on 03/04/2021.
+//  Created by Bart on 24/07/2021.
 //
 
 import Foundation
 
-struct Article: Decodable, Hashable {
+struct Article: Hashable {
     
-    let source: Source
+    let sourceName: String
     let author: String?
     let title: String
     let description: String?
@@ -17,12 +17,7 @@ struct Article: Decodable, Hashable {
     let urlToImage: String?
     let publishedAt: String
     let content: String?
-    
-    struct Source: Decodable {
-        let id: String?
-        let name: String
-    }
-    
+
     @ID var id: UUID
     
     func hash(into hasher: inout Hasher) {

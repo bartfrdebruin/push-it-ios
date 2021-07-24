@@ -41,7 +41,7 @@ class NewsViewController: UIViewController {
         super.viewDidLoad()
 
         configureCollectionView()
-        presenter.getNews()
+        presenter.getArticles()
     }
     
     private func configureCollectionView() {
@@ -73,7 +73,7 @@ extension NewsViewController: NewsViewProtocol {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Article>()
         snapshot.appendSections([1])
 
-        snapshot.appendItems(presenter.articles)
+        snapshot.appendItems(articles)
         dataSource.apply(snapshot)
     }
     

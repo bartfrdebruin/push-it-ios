@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct News: Decodable {
+struct NetworkNews: Decodable {
     let status: String
     let totalResults: Int
-    let articles: [Article]
+    let articles: [NetworkArticle]
 }
 

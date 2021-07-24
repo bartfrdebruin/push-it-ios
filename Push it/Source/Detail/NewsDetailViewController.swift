@@ -72,7 +72,7 @@ extension NewsDetailViewController: NewsDetailViewProtocol {
             descriptionLabel.isHidden = false
         }
         
-        sourceLabel.text = article.source.name
+        sourceLabel.text = article.sourceName
     }
 }
 

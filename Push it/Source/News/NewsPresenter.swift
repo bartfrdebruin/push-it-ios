@@ -11,7 +11,7 @@ import RxSwift
 protocol NewsPresenterProtocol {
     
     var view: NewsViewProtocol! { get }
-    func getNews()
+    func getArticles()
     func didSelectItem(at indexPath: IndexPath)
 }
 
@@ -36,7 +36,7 @@ class NewsPresenter: NewsPresenterProtocol {
         self.screenType = screenType
     }
     
-    func getNews() {
+    func getArticles() {
         
         newsForScreenType()
             .observe(on: MainScheduler.instance)
@@ -45,10 +45,10 @@ class NewsPresenter: NewsPresenterProtocol {
                 guard let self = self else {
                     return
                 }
-                
-                self.articles = news.articles
+    
+                let articles = self.mapToArticles(with: news.articles)
                 self.view.stopActivityIndicator()
-                self.view.configureSnapshot(with: news.articles)
+                self.view.configureSnapshot(with: articles)
                 
             } onFailure: { [weak self] (error) in
                 
@@ -61,7 +61,7 @@ class NewsPresenter: NewsPresenterProtocol {
             }.disposed(by: disposeBag)
     }
     
-    private func newsForScreenType() -> Single<News> {
+    private func newsForScreenType() -> Single<NetworkNews> {
         
         switch screenType {
         case .headlines:
@@ -75,6 +75,21 @@ class NewsPresenter: NewsPresenterProtocol {
         case .custom(let query):
             return networkLayer.custom(query: query)
         }
+    }
+    
+    private func mapToArticles(with networkArticles: [NetworkArticle]) -> [Article] {
+        
+        return networkArticles.map({
+            
+            Article(sourceName: $0.source.name,
+                    author: $0.author,
+                    title: $0.title,
+                    description: $0.description,
+                    url: $0.url,
+                    urlToImage: $0.urlToImage,
+                    publishedAt: $0.publishedAt,
+                    content: $0.content)
+        })
     }
 }
 
