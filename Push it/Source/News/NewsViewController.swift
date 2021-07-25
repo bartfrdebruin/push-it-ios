@@ -41,10 +41,10 @@ class NewsViewController: UIViewController {
         super.viewDidLoad()
 
         configureCollectionView()
-        getNews()
+        getArticles()
     }
     
-    func getNews() {
+    func getArticles() {
 
         newsForScreenType()
             .observe(on: MainScheduler.instance)
