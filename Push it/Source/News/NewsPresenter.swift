@@ -47,6 +47,7 @@ class NewsPresenter: NewsPresenterProtocol {
                 }
     
                 let articles = self.mapToArticles(with: news.articles)
+                self.articles = articles
                 self.view.stopActivityIndicator()
                 self.view.configureSnapshot(with: articles)
                 
