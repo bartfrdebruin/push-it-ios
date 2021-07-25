@@ -10,7 +10,7 @@ import RxSwift
 
 protocol NewsPresenterProtocol {
     
-    var view: NewsViewProtocol! { get }
+    var view: NewsViewProtocol? { get }
     func getArticles()
     func didSelectItem(at indexPath: IndexPath)
 }
@@ -21,7 +21,7 @@ class NewsPresenter: NewsPresenterProtocol {
     private let screenType: ScreenType
     
     // View
-    weak var view: NewsViewProtocol!
+    weak var view: NewsViewProtocol?
 
     // Articles
     private var articles: [Article] = []
@@ -47,8 +47,8 @@ class NewsPresenter: NewsPresenterProtocol {
                 }
     
                 self.articles = articles
-                self.view.stopActivityIndicator()
-                self.view.configureSnapshot(with: articles)
+                self.view?.stopActivityIndicator()
+                self.view?.configureSnapshot(with: articles)
                 
             } onFailure: { [weak self] (error) in
                 
@@ -56,7 +56,7 @@ class NewsPresenter: NewsPresenterProtocol {
                     return
                 }
                 
-                self.view.showError(with: error)
+                self.view?.showError(with: error)
 
             }.disposed(by: disposeBag)
     }
@@ -105,7 +105,7 @@ extension NewsPresenter {
             return
         }
    
-        view.pushDetailViewController(with: articles[indexPath.item])
+        view?.pushDetailViewController(with: articles[indexPath.item])
     }
 }
 
