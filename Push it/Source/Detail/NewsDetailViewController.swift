@@ -95,7 +95,7 @@ class NewsDetailViewController: UIViewController {
 // MARK: - Factory
 extension NewsDetailViewController {
     
-    static func make(with article: Article) -> NewsDetailViewController {
+    static func make(with article: NetworkArticle) -> NewsDetailViewController {
         
         let viewModel = NewsDetailViewModel(article: article)
         let storyboard = UIStoryboard(name: "NewsDetailViewController", bundle: nil)

@@ -32,7 +32,7 @@ protocol NewsDetailViewModelProtocol {
 class NewsDetailViewModel: NewsDetailViewModelProtocol {
     
     // Article
-    private let article: Article
+    private let article: NetworkArticle
     
     var image: UIImage?
 
@@ -63,7 +63,7 @@ class NewsDetailViewModel: NewsDetailViewModelProtocol {
         return stateRelay.asObservable()
     }
 
-    init(article: Article) {
+    init(article: NetworkArticle) {
         self.article = article
     }
     

@@ -9,17 +9,9 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-enum State {
-    case loading
-    case result
-    case error(Error)
-}
-
 protocol NewsViewModelProtocol {
     
-    var articles: [Article] { get }
-    var stateObservable: Observable<State> { get }
-    
+    var stateObservable: Observable<NewsState> { get }    
     func getNews() 
 }
 
@@ -29,15 +21,15 @@ class NewsViewModel: NewsViewModelProtocol {
     private let screenType: ScreenType
     
     // Articles
-    private(set) var articles: [Article] = []
+    private var articles: [NetworkArticle] = []
     
     // Network
     private let networkLayer = PushItNetworkLayer()
     
     // State
-    private var stateRelay = BehaviorRelay<State>(value: .loading)
+    private var stateRelay = BehaviorRelay<NewsState>(value: NewsState(articleState: .loading))
     
-    var stateObservable: Observable<State> {
+    var stateObservable: Observable<NewsState> {
         return stateRelay.asObservable()
     }
     
@@ -59,7 +51,7 @@ class NewsViewModel: NewsViewModelProtocol {
                 }
                 
                 self.articles = news.articles
-                self.stateRelay.accept(.result)
+                self.stateRelay.accept(NewsState(articleState: .result(news.articles)))
                 
             } onFailure: { [weak self] (error) in
                 
@@ -67,12 +59,12 @@ class NewsViewModel: NewsViewModelProtocol {
                     return
                 }
                 
-                self.stateRelay.accept(.error(error))
+                self.stateRelay.accept(NewsState(articleState: .error(error)))
                 
             }.disposed(by: disposeBag)
     }
     
-    private func newsForScreenType() -> Single<News> {
+    private func newsForScreenType() -> Single<NetworkNews> {
         
         switch screenType {
         case .headlines:

@@ -1,5 +1,5 @@
 //
-//  News.swift
+//  NetworkNews.swift
 //  Push it
 //
 //  Created by Bart on 03/04/2021.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct News: Decodable {
+struct NetworkNews: Decodable {
     let status: String
     let totalResults: Int
-    let articles: [Article]
+    let articles: [NetworkArticle]
 }
 

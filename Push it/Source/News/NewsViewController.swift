@@ -51,7 +51,7 @@ class NewsViewController: UIViewController {
         collectionView.collectionViewLayout = layout()
     }
     
-    private func configureDataSource() -> UICollectionViewDiffableDataSource<Int, Article> {
+    private func configureDataSource() -> UICollectionViewDiffableDataSource<Int, NetworkArticle> {
         
         return UICollectionViewDiffableDataSource(collectionView: collectionView) { (collectionView, indexPath, source) -> UICollectionViewCell? in
             
@@ -62,12 +62,12 @@ class NewsViewController: UIViewController {
         }
     }
     
-    func configureSnapshot() {
+    func configureSnapshot(with articles: [NetworkArticle]) {
         
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Article>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, NetworkArticle>()
         snapshot.appendSections([1])
 
-        snapshot.appendItems(viewModel.articles)
+        snapshot.appendItems(articles)
         dataSource.apply(snapshot)
     }
     
@@ -75,13 +75,13 @@ class NewsViewController: UIViewController {
         
         viewModel.stateObservable
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] state in
                 
                 guard let self = self else {
                     return
                 }
                 
-                self.configureSnapshot()
+                self.configureSnapshot(with: <#[NetworkArticle]#>)
                 self.activityIndicator.stopAnimating()
                 
             }, onError: { [weak self] error in
