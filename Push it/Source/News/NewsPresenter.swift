@@ -67,14 +67,7 @@ class NewsPresenter: NewsPresenterProtocol {
             
             news.articles.map {
                 
-                Article(sourceName: $0.source.name,
-                        author: $0.author,
-                        title: $0.title,
-                        description: $0.description,
-                        url: $0.url,
-                        urlToImage: $0.urlToImage,
-                        publishedAt: $0.publishedAt,
-                        content: $0.content)
+                Article(networkArticle: $0)
             }
         }
     }
