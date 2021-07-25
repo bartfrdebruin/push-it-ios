@@ -38,15 +38,14 @@ class NewsPresenter: NewsPresenterProtocol {
     
     func getArticles() {
         
-        newsForScreenType()
+        getArticles()
             .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] (news) in
+            .subscribe { [weak self] articles in
                 
                 guard let self = self else {
                     return
                 }
     
-                let articles = self.mapToArticles(with: news.articles)
                 self.articles = articles
                 self.view.stopActivityIndicator()
                 self.view.configureSnapshot(with: articles)
@@ -64,7 +63,20 @@ class NewsPresenter: NewsPresenterProtocol {
     
     private func getArticles() -> Single<[Article]> {
         
-        
+        return newsForScreenType().map { news in
+            
+            news.articles.map {
+                
+                Article(sourceName: $0.source.name,
+                        author: $0.author,
+                        title: $0.title,
+                        description: $0.description,
+                        url: $0.url,
+                        urlToImage: $0.urlToImage,
+                        publishedAt: $0.publishedAt,
+                        content: $0.content)
+            }
+        }
     }
     
     private func newsForScreenType() -> Single<NetworkNews> {
@@ -81,21 +93,6 @@ class NewsPresenter: NewsPresenterProtocol {
         case .custom(let query):
             return networkLayer.custom(query: query)
         }
-    }
-    
-    private func mapToArticles(with networkArticles: [NetworkArticle]) -> [Article] {
-        
-        return networkArticles.map({
-            
-            Article(sourceName: $0.source.name,
-                    author: $0.author,
-                    title: $0.title,
-                    description: $0.description,
-                    url: $0.url,
-                    urlToImage: $0.urlToImage,
-                    publishedAt: $0.publishedAt,
-                    content: $0.content)
-        })
     }
 }
 
