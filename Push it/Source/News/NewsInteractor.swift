@@ -12,7 +12,7 @@ import RxSwift
 protocol NewsInteractorProtocol {
     
     var screenType: ScreenType { get set }
-    func getNews() -> Single<NetworkNews>
+    func getArticles() -> Single<[Article]>
 }
 
 class NewsInteractor: NewsInteractorProtocol {
@@ -27,9 +27,23 @@ class NewsInteractor: NewsInteractorProtocol {
         self.screenType = screenType
     }
     
-    func getNews() -> Single<NetworkNews> {
+    func getArticles() -> Single<[Article]> {
         
         return newsForScreenType()
+            .map { news in
+        
+                news.articles.map {
+                    
+                    Article(sourceName: $0.source.name,
+                            author: $0.author,
+                            title: $0.title,
+                            description: $0.description,
+                            url: $0.url,
+                            urlToImage: $0.urlToImage,
+                            publishedAt: $0.publishedAt,
+                            content: $0.content)
+                }
+        }
     }
     
     private func newsForScreenType() -> Single<NetworkNews> {

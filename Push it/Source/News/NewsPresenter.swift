@@ -16,6 +16,7 @@ protocol NewsPresenterProtocol {
     var interactor: NewsInteractorProtocol? { get set }
 
     func getArticles()
+    func article(for indexPath: IndexPath) -> Article?
     func routeToDetail(with article: Article)
 }
 
@@ -45,19 +46,19 @@ class NewsPresenter: NewsPresenterProtocol {
 
     func getArticles() {
         
-        interactor?.getNews()
+        interactor?.getArticles()
             .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] (news) in
+            .subscribe(onSuccess: { [weak self] articles in
                 
                 guard let self = self else {
                     return
                 }
-                
-                self.articles = news.articles
+                                
+                self.articles = articles
                 self.view?.stopLoadingState()
-                self.view?.configureSnapShot(with: news.articles)
-                
-            } onFailure: { [weak self] (error) in
+                self.view?.configureSnapShot(with: articles)
+            
+            }, onFailure: { [weak self] error in
                 
                 guard let self = self else {
                     return
@@ -65,7 +66,16 @@ class NewsPresenter: NewsPresenterProtocol {
                 
                 self.view?.showErrorState(with: error)
                 
-            }.disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
+    }
+
+    func article(for indexPath: IndexPath) -> Article? {
+        
+        guard articles.count > indexPath.item else {
+            return nil
+        }
+        
+        return articles[indexPath.item]
     }
 }
 
