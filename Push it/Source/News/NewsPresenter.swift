@@ -62,6 +62,11 @@ class NewsPresenter: NewsPresenterProtocol {
             }.disposed(by: disposeBag)
     }
     
+    private func getArticles() -> Single<[Article]> {
+        
+        
+    }
+    
     private func newsForScreenType() -> Single<NetworkNews> {
         
         switch screenType {
