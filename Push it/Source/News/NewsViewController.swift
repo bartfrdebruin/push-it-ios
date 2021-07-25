@@ -10,7 +10,7 @@ import RxSwift
 
 protocol NewsViewProtocol: AnyObject {
     
-    func configureSnapShot()
+    func configureSnapShot(with articles: [Article])
     func stopLoadingState()
     func showErrorState(with error: Error)
 }
@@ -82,12 +82,12 @@ extension NewsViewController: NewsViewProtocol {
         activityIndicator.stopAnimating()
     }
     
-    func configureSnapShot() {
+    func configureSnapShot(with articles: [Article]) {
         
         var snapshot = NSDiffableDataSourceSnapshot<Int, Article>()
         snapshot.appendSections([1])
         
-        snapshot.appendItems(presenter.articles)
+        snapshot.appendItems(articles)
         dataSource.apply(snapshot)
     }
 }

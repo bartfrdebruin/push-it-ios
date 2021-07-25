@@ -14,7 +14,6 @@ protocol NewsPresenterProtocol {
     var view: NewsViewProtocol? { get set }
     var router: NewsRouterProtocol? { get set }
     var interactor: NewsInteractorProtocol? { get set }
-    var articles: [Article] { get }
 
     func getNews()
     func routeToDetail(with article: Article)
@@ -35,7 +34,7 @@ class NewsPresenter: NewsPresenterProtocol {
     private let screenType: ScreenType
     
     // Articles
-    var articles: [Article] = []
+    private var articles: [Article] = []
 
     // Rx
     private let disposeBag = DisposeBag()
@@ -56,7 +55,7 @@ class NewsPresenter: NewsPresenterProtocol {
                 
                 self.articles = news.articles
                 self.view?.stopLoadingState()
-                self.view?.configureSnapShot()
+                self.view?.configureSnapShot(with: news.articles)
                 
             } onFailure: { [weak self] (error) in
                 
