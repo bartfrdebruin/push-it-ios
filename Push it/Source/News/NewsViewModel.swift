@@ -12,7 +12,8 @@ import RxSwift
 protocol NewsViewModelProtocol {
     
     var stateObservable: Observable<NewsState> { get }    
-    func getNews() 
+    func getArticles()
+    func article(for indexPath: IndexPath) -> Article?
 }
 
 class NewsViewModel: NewsViewModelProtocol {
@@ -40,18 +41,18 @@ class NewsViewModel: NewsViewModelProtocol {
         self.screenType = screenType
     }
 
-    func getNews() {
+    func getArticles() {
         
-        newsForScreenType()
+        getArticles()
             .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] (news) in
+            .subscribe { [weak self] articles in
                 
                 guard let self = self else {
                     return
                 }
                 
-                self.articles = news.articles
-                self.stateRelay.accept(NewsState(articleState: .result(news.articles)))
+                self.articles = articles
+                self.stateRelay.accept(NewsState(articleState: .result(articles)))
                 
             } onFailure: { [weak self] (error) in
                 
@@ -62,6 +63,17 @@ class NewsViewModel: NewsViewModelProtocol {
                 self.stateRelay.accept(NewsState(articleState: .error(error)))
                 
             }.disposed(by: disposeBag)
+    }
+    
+    private func getArticles() -> Single<[Article]> {
+        
+        return newsForScreenType().map { news in
+            
+            news.articles.map {
+                
+                Article(networkArticle: $0)
+            }
+        }
     }
     
     private func newsForScreenType() -> Single<NetworkNews> {
@@ -78,5 +90,14 @@ class NewsViewModel: NewsViewModelProtocol {
         case .custom(let query):
             return networkLayer.custom(query: query)
         }
+    }
+    
+    func article(for indexPath: IndexPath) -> Article? {
+        
+        guard articles.count > indexPath.item else {
+            return nil
+        }
+        
+        return articles[indexPath.item]
     }
 }

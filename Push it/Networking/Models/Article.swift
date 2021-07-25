@@ -17,6 +17,17 @@ struct Article: Hashable {
     let urlToImage: String?
     let publishedAt: String
     let content: String?
+    
+    init(networkArticle: NetworkArticle) {
+        self.sourceName = networkArticle.source.name
+        self.author = networkArticle.author
+        self.title = networkArticle.title
+        self.description = networkArticle.description
+        self.url = networkArticle.url
+        self.urlToImage = networkArticle.urlToImage
+        self.publishedAt = networkArticle.publishedAt
+        self.content = networkArticle.content
+    }
 
     @ID var id: UUID
     

@@ -44,27 +44,20 @@ class NewsDetailViewController: UIViewController {
     
     func bindObservables() {
         
-        viewModel.imageStateObservable
+        viewModel.stateObservable
             .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] _ in
+            .subscribe(onNext: { state in
                 
-                guard let self = self else {
-                    return
-                }
-                
-                if let image = self.viewModel.image {
+                switch state.imageState {
+                case .result(let image):
                     self.imageView.image = image
+                case .error(_):
+                    self.imageView.isHidden = true
+                default:
+                    break
                 }
                 
-            } onError: { [weak self] _ in
-                
-                guard let self = self else {
-                    return
-                }
-                
-                self.imageView.isHidden = true
-                
-            }.disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
     }
 
     private func configure() {
@@ -95,7 +88,7 @@ class NewsDetailViewController: UIViewController {
 // MARK: - Factory
 extension NewsDetailViewController {
     
-    static func make(with article: NetworkArticle) -> NewsDetailViewController {
+    static func make(with article: Article) -> NewsDetailViewController {
         
         let viewModel = NewsDetailViewModel(article: article)
         let storyboard = UIStoryboard(name: "NewsDetailViewController", bundle: nil)

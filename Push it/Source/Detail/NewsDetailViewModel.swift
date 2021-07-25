@@ -9,22 +9,15 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-enum ImageState {
-    case loading
-    case result
-    case error(Error)
-}
-
 protocol NewsDetailViewModelProtocol {
     
-    var imageStateObservable: Observable<ImageState> { get }
+    var stateObservable: Observable<NewsDetailState> { get }
         
     var author: String? { get }
     var content: String? { get }
     var description: String? { get }
     var title: String { get }
     var source: String { get }
-    var image: UIImage? { get }
     
     func downloadImage()
 }
@@ -32,9 +25,7 @@ protocol NewsDetailViewModelProtocol {
 class NewsDetailViewModel: NewsDetailViewModelProtocol {
     
     // Article
-    private let article: NetworkArticle
-    
-    var image: UIImage?
+    private let article: Article
 
     var author: String? {
         return article.author
@@ -53,17 +44,17 @@ class NewsDetailViewModel: NewsDetailViewModelProtocol {
     }
 
     var source: String {
-        return article.source.name
+        return article.sourceName
     }
 
     // State
-    private var stateRelay = BehaviorRelay<ImageState>(value: .loading)
+    private var stateRelay = BehaviorRelay<NewsDetailState>(value: NewsDetailState(imageState: .loading))
     
-    var imageStateObservable: Observable<ImageState> {
+    var stateObservable: Observable<NewsDetailState> {
         return stateRelay.asObservable()
     }
 
-    init(article: NetworkArticle) {
+    init(article: Article) {
         self.article = article
     }
     
@@ -78,10 +69,9 @@ class NewsDetailViewModel: NewsDetailViewModelProtocol {
             
             switch result {
             case .success(let image):
-                self?.image = image
-                self?.stateRelay.accept(.result)
+                self?.stateRelay.accept(NewsDetailState(imageState: .result(image)))
             case .failure(let error):
-                self?.stateRelay.accept(.error(error))
+                self?.stateRelay.accept(NewsDetailState(imageState: .error(error)))
             }
         }
     }

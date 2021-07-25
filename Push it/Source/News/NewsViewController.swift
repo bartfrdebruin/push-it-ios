@@ -38,7 +38,7 @@ class NewsViewController: UIViewController {
 
         bindObservables()
         configureCollectionView()
-        viewModel.getNews()
+        viewModel.getArticles()
     }
     
     private func configureCollectionView() {
@@ -103,11 +103,10 @@ extension NewsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard viewModel.articles.count > indexPath.item else {
+        guard let article = viewModel.article(for: indexPath) else {
             return
         }
-        
-        let article = viewModel.articles[indexPath.item]
+    
         let vc = NewsDetailViewController.make(with: article)
         navigationController?.pushViewController(vc, animated: true)
     }
