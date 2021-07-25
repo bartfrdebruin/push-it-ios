@@ -21,7 +21,7 @@ class NewsViewModel: NewsViewModelProtocol {
     private let screenType: ScreenType
     
     // Articles
-    private var articles: [NetworkArticle] = []
+    private var articles: [Article] = []
     
     // Network
     private let networkLayer = PushItNetworkLayer()

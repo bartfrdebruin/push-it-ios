@@ -47,6 +47,7 @@
 		CCC0035D2667BA26003983C6 /* LocationNotificationsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCC0035C2667BA26003983C6 /* LocationNotificationsViewController.storyboard */; };
 		CCC4761026737AD2009F9013 /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4760F26737AD2009F9013 /* OSLog.swift */; };
 		CCCA3E3D26AD75B700682BC3 /* NewsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCA3E3C26AD75B700682BC3 /* NewsState.swift */; };
+		CCCA3E4026AD780A00682BC3 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCA3E3F26AD780900682BC3 /* Article.swift */; };
 		CCD6901B2620825900BBE472 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD6901A2620825900BBE472 /* ImageDownloader.swift */; };
 		CCD690242620825E00BBE472 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD6901A2620825900BBE472 /* ImageDownloader.swift */; };
 		CCFA0E0B2621B8300047D058 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFA0E082621B8300047D058 /* NewsViewController.swift */; };
@@ -138,6 +139,7 @@
 		CCC0035C2667BA26003983C6 /* LocationNotificationsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LocationNotificationsViewController.storyboard; sourceTree = "<group>"; };
 		CCC4760F26737AD2009F9013 /* OSLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
 		CCCA3E3C26AD75B700682BC3 /* NewsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsState.swift; sourceTree = "<group>"; };
+		CCCA3E3F26AD780900682BC3 /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		CCD6901A2620825900BBE472 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		CCFA0E082621B8300047D058 /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		CCFA0E092621B8300047D058 /* NewsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
@@ -236,22 +238,23 @@
 		CC25FEE3267148620069A2E4 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				CCCA3E3E26AD780900682BC3 /* Models */,
+				CC25FEE6267148620069A2E4 /* NetworkModels */,
+				CC25FEEA267148620069A2E4 /* Protocols */,
+				CC25FEE9267148620069A2E4 /* PushItNetworkEnvironment.swift */,
 				CC25FEE4267148620069A2E4 /* PushItNetworkLayer.swift */,
 				CC25FEE5267148620069A2E4 /* PushItNetworkRoute.swift */,
-				CC25FEE6267148620069A2E4 /* Models */,
-				CC25FEE9267148620069A2E4 /* PushItNetworkEnvironment.swift */,
-				CC25FEEA267148620069A2E4 /* Protocols */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		CC25FEE6267148620069A2E4 /* Models */ = {
+		CC25FEE6267148620069A2E4 /* NetworkModels */ = {
 			isa = PBXGroup;
 			children = (
 				CC25FEE7267148620069A2E4 /* NetworkNews.swift */,
 				CC25FEE8267148620069A2E4 /* NetworkArticle.swift */,
 			);
-			path = Models;
+			path = NetworkModels;
 			sourceTree = "<group>";
 		};
 		CC25FEEA267148620069A2E4 /* Protocols */ = {
@@ -355,6 +358,14 @@
 				CCC003562667B9A6003983C6 /* LocalNotificationsViewController.swift */,
 			);
 			path = "Local Notifications";
+			sourceTree = "<group>";
+		};
+		CCCA3E3E26AD780900682BC3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CCCA3E3F26AD780900682BC3 /* Article.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		CCD690192620824700BBE472 /* Common */ = {
@@ -574,6 +585,7 @@
 				CC25FEFC267148620069A2E4 /* NetworkValidation.swift in Sources */,
 				CCC003572667B9A6003983C6 /* LocalNotificationsViewController.swift in Sources */,
 				CCC0035026679E29003983C6 /* Date.swift in Sources */,
+				CCCA3E4026AD780A00682BC3 /* Article.swift in Sources */,
 				CC25FEFE267148620069A2E4 /* NetworkProvider.swift in Sources */,
 				CC25FEF7267148620069A2E4 /* PushItNetworkEnvironment.swift in Sources */,
 				CC5E95C9263ED37E00E9D3EF /* NewsDetailViewController.swift in Sources */,

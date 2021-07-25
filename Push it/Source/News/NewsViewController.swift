@@ -51,7 +51,7 @@ class NewsViewController: UIViewController {
         collectionView.collectionViewLayout = layout()
     }
     
-    private func configureDataSource() -> UICollectionViewDiffableDataSource<Int, NetworkArticle> {
+    private func configureDataSource() -> UICollectionViewDiffableDataSource<Int, Article> {
         
         return UICollectionViewDiffableDataSource(collectionView: collectionView) { (collectionView, indexPath, source) -> UICollectionViewCell? in
             
@@ -62,9 +62,9 @@ class NewsViewController: UIViewController {
         }
     }
     
-    func configureSnapshot(with articles: [NetworkArticle]) {
+    func configureSnapshot(with articles: [Article]) {
         
-        var snapshot = NSDiffableDataSourceSnapshot<Int, NetworkArticle>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Article>()
         snapshot.appendSections([1])
 
         snapshot.appendItems(articles)
@@ -81,18 +81,18 @@ class NewsViewController: UIViewController {
                     return
                 }
                 
-                self.configureSnapshot(with: <#[NetworkArticle]#>)
-                self.activityIndicator.stopAnimating()
-                
-            }, onError: { [weak self] error in
-                
-                guard let self = self else {
-                    return
+                switch state.articleState {
+                case .loading:
+                    self.errorLabel.isHidden = true
+                    self.activityIndicator.startAnimating()
+                case .result(let articles):
+                    self.errorLabel.isHidden = true
+                    self.activityIndicator.stopAnimating()
+                    self.configureSnapshot(with: articles)
+                case .error(let error):
+                    self.errorLabel.text = error.localizedDescription
+                    self.errorLabel.isHidden = false
                 }
-                
-                self.errorLabel.text = error.localizedDescription
-                self.errorLabel.isHidden = false
-                self.activityIndicator.stopAnimating()
                 
             }).disposed(by: disposeBag)
     }

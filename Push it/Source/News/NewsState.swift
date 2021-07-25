@@ -11,7 +11,7 @@ struct NewsState {
     
    enum ArticleState {
        case loading
-       case result([NetworkArticle])
+       case result([Article])
        case error(Error)
    }
     

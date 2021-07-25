@@ -40,7 +40,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
         titleLabel.text = text
     }
     
-    func configure(with article: NetworkArticle) {
+    func configure(with article: Article) {
         
         titleLabel.text = article.title
         
