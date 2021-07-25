@@ -9,17 +9,10 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-enum State {
-    case initial
-    case loading
-    case result
-    case error(Error)
-}
-
 protocol NewsInteractorProtocol {
     
     var screenType: ScreenType { get set }
-    func getNews() -> Single<News>
+    func getNews() -> Single<NetworkNews>
 }
 
 class NewsInteractor: NewsInteractorProtocol {
@@ -34,12 +27,12 @@ class NewsInteractor: NewsInteractorProtocol {
         self.screenType = screenType
     }
     
-    func getNews() -> Single<News> {
+    func getNews() -> Single<NetworkNews> {
         
         return newsForScreenType()
     }
     
-    private func newsForScreenType() -> Single<News> {
+    private func newsForScreenType() -> Single<NetworkNews> {
         
         switch screenType {
         case .headlines:

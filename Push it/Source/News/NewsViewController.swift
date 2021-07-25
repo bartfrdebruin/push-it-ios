@@ -10,7 +10,7 @@ import RxSwift
 
 protocol NewsViewProtocol: AnyObject {
     
-    func configureSnapShot(with articles: [Article])
+    func configureSnapShot(with articles: [NetworkArticle])
     func stopLoadingState()
     func showErrorState(with error: Error)
 }
@@ -44,7 +44,7 @@ class NewsViewController: UIViewController {
         super.viewDidLoad()
 
         configureCollectionView()
-        presenter.getNews()
+        presenter.getArticles()
     }
     
     private func configureCollectionView() {
@@ -57,7 +57,7 @@ class NewsViewController: UIViewController {
         collectionView.collectionViewLayout = layout()
     }
     
-    private func configureDataSource() -> UICollectionViewDiffableDataSource<Int, Article> {
+    private func configureDataSource() -> UICollectionViewDiffableDataSource<Int, NetworkArticle> {
         
         return UICollectionViewDiffableDataSource(collectionView: collectionView) { (collectionView, indexPath, source) -> UICollectionViewCell? in
             
@@ -82,9 +82,9 @@ extension NewsViewController: NewsViewProtocol {
         activityIndicator.stopAnimating()
     }
     
-    func configureSnapShot(with articles: [Article]) {
+    func configureSnapShot(with articles: [NetworkArticle]) {
         
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Article>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, NetworkArticle>()
         snapshot.appendSections([1])
         
         snapshot.appendItems(articles)

@@ -19,31 +19,31 @@ final class PushItNetworkLayer: Networking {
         self.networkProvider = networkProvider
     }
     
-    func headlines() -> Single<News> {
+    func headlines() -> Single<NetworkNews> {
         
         let route = PushItNetworkRoute.headlines
         return request(for: route)
     }
 
-    func domesticNews() -> Single<News> {
+    func domesticNews() -> Single<NetworkNews> {
         
         let route = PushItNetworkRoute.domestic
         return request(for: route)
     }
     
-    func foreignNews() -> Single<News> {
+    func foreignNews() -> Single<NetworkNews> {
         
         let route = PushItNetworkRoute.foreign
         return request(for: route)
     }
     
-    func sports() -> Single<News> {
+    func sports() -> Single<NetworkNews> {
         
         let route = PushItNetworkRoute.sports
         return request(for: route)
     }
     
-    func custom(query: String) -> Single<News> {
+    func custom(query: String) -> Single<NetworkNews> {
         
         let route = PushItNetworkRoute.custom(query)
         return request(for: route)

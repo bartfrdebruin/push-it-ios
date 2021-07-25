@@ -15,12 +15,12 @@ protocol NewsPresenterProtocol {
     var router: NewsRouterProtocol? { get set }
     var interactor: NewsInteractorProtocol? { get set }
 
-    func getNews()
+    func getArticles()
     func routeToDetail(with article: Article)
 }
 
 class NewsPresenter: NewsPresenterProtocol {
-    
+ 
     // View
     weak var view: NewsViewProtocol?
     
@@ -43,7 +43,7 @@ class NewsPresenter: NewsPresenterProtocol {
         self.screenType = screenType
     }
 
-    func getNews() {
+    func getArticles() {
         
         interactor?.getNews()
             .observe(on: MainScheduler.instance)
