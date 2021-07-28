@@ -9,6 +9,7 @@ import UIKit
 
 protocol NewsViewProtocol: AnyObject {
     
+    // Think about naming, making things more generic in a protocol
     func stopActivityIndicator()
     func showError(with error: Error)
     func configureSnapshot(with articles: [Article])
