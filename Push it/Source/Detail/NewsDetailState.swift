@@ -9,11 +9,18 @@ import UIKit
 
 struct NewsDetailState {
     
+    enum ArticleState {
+        case loading
+        case result(UIImage)
+        case error(Error)
+    }
+    
    enum ImageState {
        case loading
        case result(UIImage)
        case error(Error)
    }
     
-   let imageState: ImageState
+    let imageState: ImageState
+    let articleState: ArticleState
 }
