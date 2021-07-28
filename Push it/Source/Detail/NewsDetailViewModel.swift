@@ -70,8 +70,8 @@ class NewsDetailViewModel: NewsDetailViewModelProtocol {
             switch result {
             case .success(let image):
                 self?.stateRelay.accept(NewsDetailState(imageState: .result(image)))
-            case .failure(let error):
-                self?.stateRelay.accept(NewsDetailState(imageState: .error(error)))
+            case .failure:
+                self?.stateRelay.accept(NewsDetailState(imageState: .noImage))
             }
         }
     }

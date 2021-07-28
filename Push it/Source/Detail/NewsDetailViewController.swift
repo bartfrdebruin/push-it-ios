@@ -51,7 +51,7 @@ class NewsDetailViewController: UIViewController {
                 switch state.imageState {
                 case .result(let image):
                     self.imageView.image = image
-                case .error(_):
+                case .noImage:
                     self.imageView.isHidden = true
                 default:
                     break
