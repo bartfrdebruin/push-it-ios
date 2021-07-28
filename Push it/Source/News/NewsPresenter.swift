@@ -47,8 +47,8 @@ class NewsPresenter: NewsPresenterProtocol {
                 }
     
                 self.articles = articles
-                self.view?.stopActivityIndicator()
-                self.view?.configureSnapshot(with: articles)
+                self.view?.stopLoadingState()
+                self.view?.configureView(with: articles)
                 
             } onFailure: { [weak self] (error) in
                 
@@ -56,7 +56,7 @@ class NewsPresenter: NewsPresenterProtocol {
                     return
                 }
                 
-                self.view?.showError(with: error)
+                self.view?.showErrorState(with: error)
 
             }.disposed(by: disposeBag)
     }
@@ -98,7 +98,7 @@ extension NewsPresenter {
             return
         }
    
-        view?.pushDetailViewController(with: articles[indexPath.item])
+        view?.showArticle(with: articles[indexPath.item])
     }
 }
 

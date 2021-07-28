@@ -9,11 +9,10 @@ import UIKit
 
 protocol NewsViewProtocol: AnyObject {
     
-    // Think about naming, making things more generic in a protocol
-    func stopActivityIndicator()
-    func showError(with error: Error)
-    func configureSnapshot(with articles: [Article])
-    func pushDetailViewController(with article: Article)
+    func stopLoadingState()
+    func showErrorState(with error: Error)
+    func configureView(with articles: [Article])
+    func showArticle(with article: Article)
 }
 
 class NewsViewController: UIViewController {
@@ -69,7 +68,7 @@ class NewsViewController: UIViewController {
 // MARK: - NewsViewProtocol
 extension NewsViewController: NewsViewProtocol {
     
-    func configureSnapshot(with articles: [Article]) {
+    func configureView(with articles: [Article]) {
         
         var snapshot = NSDiffableDataSourceSnapshot<Int, Article>()
         snapshot.appendSections([1])
@@ -78,19 +77,19 @@ extension NewsViewController: NewsViewProtocol {
         dataSource.apply(snapshot)
     }
     
-    func showError(with error: Error) {
+    func showErrorState(with error: Error) {
         
         activityIndicator.stopAnimating()
         errorLabel.text = error.localizedDescription
         errorLabel.isHidden = false
     }
  
-    func stopActivityIndicator() {
+    func stopLoadingState() {
        
         activityIndicator.stopAnimating()
     }
     
-    func pushDetailViewController(with article: Article) {
+    func showArticle(with article: Article) {
         
         let viewController = NewsDetailViewController.make(with: article)
         navigationController?.pushViewController(viewController, animated: true)
