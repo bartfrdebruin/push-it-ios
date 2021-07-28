@@ -56,7 +56,7 @@ class NewsPresenter: NewsPresenterProtocol {
                                 
                 self.articles = articles
                 self.view?.stopLoadingState()
-                self.view?.configureSnapShot(with: articles)
+                self.view?.configureView(with: articles)
             
             }, onFailure: { [weak self] error in
                 
